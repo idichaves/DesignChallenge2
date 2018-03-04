@@ -2,7 +2,7 @@
 public class Event extends CalendarItem {
     private boolean holidayIndicator;
 
-    public Event(int month, int day, int year, int hrStart, int minStart, int hrEnd, int minEnd, String name, boolean holiday) {
+    public Event(int month, int day, int year, int hrStart, int minStart, int hrEnd, int minEnd, String name, String color, boolean holiday) {
         super.setMonth(month);
         super.setDay(day);
         super.setYear(year);
@@ -11,6 +11,7 @@ public class Event extends CalendarItem {
         super.setHrEnd(hrEnd);
         super.setMinEnd(minEnd);
         super.setName(name);
+        super.setColor(color);
         holidayIndicator = holiday;
     }
 
