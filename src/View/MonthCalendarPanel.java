@@ -1,8 +1,17 @@
 package View;
 
+import sun.rmi.server.InactiveGroupException;
+
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.time.Year;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import javax.swing.SwingConstants;
 import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
@@ -21,6 +30,7 @@ public class MonthCalendarPanel extends JPanel {
     private JLabel lblFilterItems;
     private JComboBox cmbYear;
     private JLabel lblYear;
+    private List year;
 
     public MonthCalendarPanel() {
         setLayout(null);
@@ -32,12 +42,13 @@ public class MonthCalendarPanel extends JPanel {
     Place Gui below
      */
     public void initComponents(){
+       year =  IntStream.range(Integer.parseInt(Year.now().toString())- 100,
+                Integer.parseInt(Year.now().toString()) + 100).boxed().collect(Collectors.toList());
         lblMonth = new JLabel("MONTH");
         lblMonth.setHorizontalAlignment(SwingConstants.CENTER);
         lblMonth.setFont(new Font("Rockwell", Font.PLAIN, 20));
         lblMonth.setBounds(245, 0, 145, 36);
         add(lblMonth);
-
         itemBtnContainer = new ButtonGroup();
 
         rdbtnEventsOnly = new JRadioButton("Events");
@@ -80,9 +91,10 @@ public class MonthCalendarPanel extends JPanel {
         lblFilterItems.setBounds(20, 46, 103, 21);
         add(lblFilterItems);
 
-        cmbYear = new JComboBox();
+        cmbYear = new JComboBox(year.toArray());
         cmbYear.setFont(new Font("Rockwell", Font.PLAIN, 15));
         cmbYear.setBounds(245, 95, 145, 36);
+        cmbYear.setSelectedItem(Integer.parseInt(Year.now().toString()));
         add(cmbYear);
 
         lblYear = new JLabel("YEAR");
@@ -90,5 +102,14 @@ public class MonthCalendarPanel extends JPanel {
         lblYear.setFont(new Font("Rockwell", Font.PLAIN, 20));
         lblYear.setBounds(288, 49, 56, 33);
         add(lblYear);
+    }
+
+    private void initActionsListener(){
+        cmbYear.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
     }
 }

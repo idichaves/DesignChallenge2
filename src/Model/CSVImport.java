@@ -40,7 +40,7 @@ public class CSVImport extends FileImport {
                     calendarItems.add(new ToDo(Integer.parseInt(arrDate[0]), Integer.parseInt(arrDate[1]), Integer.parseInt(arrDate[3]),
                             Integer.parseInt(arrStartTime[0]), Integer.parseInt(arrStartTime[1]), Integer.parseInt(arrEndTime[0]),
                             Integer.parseInt(arrEndTime[1]), sName, sColor));
-                /******append here for additional types of events follow previous examples******/
+                /******append conditional statements here for additional types of events follow previous examples******/
 
             }
             bf.close();
@@ -80,7 +80,7 @@ public class CSVImport extends FileImport {
                 write.append(e.getName());
                 write.append(","); //2nd sep
 
-                /*** TODO: CREATE A METHOD for append to avoid mess***/
+                /*** TODO: CREATE A METHOD for append so that each instance has its own***/
                 if(e instanceof ToDo)
                     write.append("ToDo");
                 else if (e instanceof Event && ((Event) e).isHoliday())
