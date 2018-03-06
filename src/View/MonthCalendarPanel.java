@@ -24,7 +24,14 @@ public class MonthCalendarPanel extends JPanel {
 
     public MonthCalendarPanel() {
         setLayout(null);
+        initComponents(); //InitGuiComponents
+    }
 
+
+    /*
+    Place Gui below
+     */
+    public void initComponents(){
         lblMonth = new JLabel("MONTH");
         lblMonth.setHorizontalAlignment(SwingConstants.CENTER);
         lblMonth.setFont(new Font("Rockwell", Font.PLAIN, 20));
