@@ -1,3 +1,6 @@
+package Model;
+
+import Model.CalendarItem;
 
 public class ToDo extends CalendarItem {
     private boolean accomplished;

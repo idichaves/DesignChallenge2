@@ -1,3 +1,4 @@
+package Model;
 
 public class Event extends CalendarItem {
     private boolean holidayIndicator;

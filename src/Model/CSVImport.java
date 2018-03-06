@@ -1,9 +1,10 @@
+package Model;
+
 import java.awt.*;
 import java.io.FileReader;
 import java.io.BufferedReader;
 import java.io.FileWriter;
 import java.io.PrintWriter;
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 
 public class CSVImport extends FileImport {
@@ -26,11 +27,11 @@ public class CSVImport extends FileImport {
                 line = bf.readLine();
                 String[] event = line.split(",");
                 String[] date = event[0].split("/");
-
                 //NEED TO EDIT THIS TO INCLUDE TIMES
                 /*Event e = new Event(Integer.parseInt(date[0]) - 1, Integer.parseInt(date[1]),
                         Integer.parseInt(date[2]), event[1], event[2], "csv");*/
                 //events.add(e);
+
             }
             bf.close();
             r.close();

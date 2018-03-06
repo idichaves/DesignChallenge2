@@ -1,3 +1,5 @@
+package Model;
+
 public abstract class CalendarItem {
     protected int month;
     protected int day;
