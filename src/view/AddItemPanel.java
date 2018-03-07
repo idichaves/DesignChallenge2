@@ -1,3 +1,5 @@
+package view;
+
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -8,7 +10,6 @@ import javax.swing.ButtonGroup;
 
 public class AddItemPanel extends JPanel {
 
-    private static final long serialVersionUID = 1L;
     private JTextField nameTxtField;
     private JTextField dateTxtField;
     private JTextField timeStarttxtField;
