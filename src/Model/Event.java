@@ -3,10 +3,11 @@ package model;
 public class Event extends CalendarItem {
     private boolean holidayIndicator;
 
-    public Event(int month, int day, int year, int hrStart, int minStart, int hrEnd, int minEnd, String name, String color, boolean holiday) {
-        super.setMonth(month);
-        super.setDay(day);
-        super.setYear(year);
+    public Event(String date, int hrStart, int minStart, int hrEnd, int minEnd, String name, String color, boolean holiday) {
+        String[] dateComps = date.split("/");
+        super.setMonth(Integer.parseInt(dateComps[0]));
+        super.setDay(Integer.parseInt(dateComps[1]));
+        super.setYear(Integer.parseInt(dateComps[2]));
         super.setHrStart(hrStart);
         super.setMinStart(minStart);
         super.setHrEnd(hrEnd);

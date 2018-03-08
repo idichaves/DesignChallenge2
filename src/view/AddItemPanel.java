@@ -4,6 +4,9 @@ import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+
+import org.jdatepicker.impl.JDatePickerImpl;
+
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -25,7 +28,7 @@ public class AddItemPanel extends JPanel {
     private JButton btnCancel;
     private JButton btnClear;
 
-    public AddItemPanel(JPanel itemPanel) {
+    public AddItemPanel(JPanel itemPanel, JDatePickerImpl datePicker) {
         setLayout(null);
 
         JLabel lblName = new JLabel("Name:");
@@ -37,7 +40,7 @@ public class AddItemPanel extends JPanel {
         nameTxtField.setFont(new Font("Rockwell", Font.PLAIN, 15));
         nameTxtField.setBounds(131, 74, 370, 29);
         add(nameTxtField);
-        nameTxtField.setColumns(10);
+        //nameTxtField.setColumns(10);
 
         rdbtnEvent = new JRadioButton("Event");
         rdbtnEvent.setFont(new Font("Rockwell", Font.PLAIN, 16));
@@ -61,6 +64,7 @@ public class AddItemPanel extends JPanel {
         dateTxtField = new JTextField();
         dateTxtField.setFont(new Font("Rockwell", Font.PLAIN, 15));
         dateTxtField.setBounds(131, 140, 115, 29);
+        dateTxtField.setEditable(false);
         add(dateTxtField);
         dateTxtField.setColumns(10);
 
@@ -104,6 +108,8 @@ public class AddItemPanel extends JPanel {
 
                 //reset all text fields to " "
                 reset();
+                itemPanel.removeAll();
+                itemPanel.repaint();
             }
         });
 
@@ -133,6 +139,13 @@ public class AddItemPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent arg0) {
                 reset();
+            }
+        });
+
+        datePicker.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent arg0) {
+                dateTxtField.setText(datePicker.getJFormattedTextField().getText());
             }
         });
 

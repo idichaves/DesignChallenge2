@@ -11,5 +11,14 @@ public class MonthViewControl {
     public MonthViewControl(MonthViewPanel view){
         this.view = view;
         model = new CalendarModel();
+        view.addDatePicker(model);
+    }
+
+    public MonthViewPanel getView(){
+        return view;
+    }
+
+    public CalendarModel getModel(){
+        return model;
     }
 }

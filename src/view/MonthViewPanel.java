@@ -10,8 +10,9 @@ import java.awt.Font;
 import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
 
+import model.CalendarModel;
+import model.DateLabelFormatter;
 import control.MonthViewControl;
-import org.jdatepicker.impl.DateComponentFormatter;
 import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
@@ -54,25 +55,13 @@ public class MonthViewPanel extends JPanel {
         btnAddItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent arg0) {
-                JPanel panel = new AddItemPanel(itemPanel);
+                JPanel panel = new AddItemPanel(itemPanel, datePicker);
                 panel.setBounds(0, 0, 555, 445);
                 itemPanel.removeAll();
                 itemPanel.add(panel);
                 itemPanel.repaint();
-                //addItemPanel.setVisible(true);
             }
         });
-
-        UtilDateModel dateModel = new UtilDateModel();
-        Properties p = new Properties();
-        p.put("text.today", "Today");
-        p.put("text.month", "Month");
-        p.put("text.year", "Year");
-
-        monthCalPanel = new JDatePanelImpl(dateModel, p);
-        datePicker = new JDatePickerImpl(monthCalPanel, new DateComponentFormatter());
-        datePicker.setBounds(0, 0, 334, 25);
-        add(datePicker);
 
         rdbtnEvent = new JRadioButton("Event");
         rdbtnEvent.setFont(new Font("Rockwell", Font.PLAIN, 15));
@@ -96,7 +85,11 @@ public class MonthViewPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent arg0) {
                 // TODO Auto-generated method stub
-
+                JPanel dayView = new DayViewPanel();
+                dayView.setBounds(0, 0, 555, 445);
+                itemPanel.removeAll();
+                itemPanel.add(dayView);
+                itemPanel.repaint();
             }
         });
 
@@ -108,9 +101,11 @@ public class MonthViewPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // TODO Auto-generated method stub
-                //JPanel panel = new WeekViewPanel();
-                //panel.setBounds(0, 0, 555, 445);
-
+                JPanel weekView = new WeekViewPanel();
+                weekView.setBounds(0, 0, 555, 445);
+                itemPanel.removeAll();
+                itemPanel.add(weekView);
+                itemPanel.repaint();
             }
         });
 
@@ -134,5 +129,12 @@ public class MonthViewPanel extends JPanel {
         viewGroup.add(rdbtnDayView);
         viewGroup.add(rdbtnWeekView);
         viewGroup.add(rdbtnAgendaView);
+    }
+
+    public void addDatePicker(CalendarModel model){
+        monthCalPanel = new JDatePanelImpl(model.getDateModel(), model.getProperties());
+        datePicker = new JDatePickerImpl(monthCalPanel, new DateLabelFormatter());
+        datePicker.setBounds(0, 0, 334, 25);
+        add(datePicker);
     }
 }

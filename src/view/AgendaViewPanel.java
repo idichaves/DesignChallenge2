@@ -3,13 +3,12 @@ package view;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import java.awt.Font;
-import javax.swing.JScrollPane;
-import javax.swing.border.LineBorder;
-import java.awt.Color;
+import javax.swing.JTextArea;
 
 public class AgendaViewPanel extends JPanel {
 
     private static final long serialVersionUID = 1L;
+    private JTextArea agendaTextArea;
 
     public AgendaViewPanel() {
         setLayout(null);
@@ -19,10 +18,14 @@ public class AgendaViewPanel extends JPanel {
         lblAgenda.setBounds(30, 13, 204, 35);
         add(lblAgenda);
 
-        JScrollPane scrollPane = new JScrollPane();
-        scrollPane.setViewportBorder(new LineBorder(new Color(0, 0, 0)));
-        scrollPane.setBounds(0, 61, 525, 384);
-        add(scrollPane);
+        agendaTextArea = new JTextArea();
+        agendaTextArea.setEditable(false);
+        agendaTextArea.setFont(new Font("Century", Font.BOLD, 20));
+        agendaTextArea.setBounds(0, 61, 555, 394);
+        add(agendaTextArea);
+    }
 
+    public void append(String s){
+        agendaTextArea.append(s);
     }
 }
