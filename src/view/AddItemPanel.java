@@ -2,10 +2,14 @@ package view;
 
 import javax.swing.JPanel;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.JRadioButton;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.ButtonGroup;
 
 public class AddItemPanel extends JPanel {
@@ -13,10 +17,15 @@ public class AddItemPanel extends JPanel {
     private JTextField nameTxtField;
     private JTextField dateTxtField;
     private JTextField timeStarttxtField;
-    private JTextField textField;
+    private JTextField timeEndTxtField;
+    private JRadioButton rdbtnEvent;
+    private JRadioButton rdbtnTask;
     private ButtonGroup itemTypeGroup;
+    private JButton btnAdd;
+    private JButton btnCancel;
+    private JButton btnClear;
 
-    public AddItemPanel() {
+    public AddItemPanel(JPanel itemPanel) {
         setLayout(null);
 
         JLabel lblName = new JLabel("Name:");
@@ -30,12 +39,12 @@ public class AddItemPanel extends JPanel {
         add(nameTxtField);
         nameTxtField.setColumns(10);
 
-        JRadioButton rdbtnEvent = new JRadioButton("Event");
+        rdbtnEvent = new JRadioButton("Event");
         rdbtnEvent.setFont(new Font("Rockwell", Font.PLAIN, 16));
         rdbtnEvent.setBounds(30, 243, 115, 35);
         add(rdbtnEvent);
 
-        JRadioButton rdbtnTask = new JRadioButton("Task");
+        rdbtnTask = new JRadioButton("Task");
         rdbtnTask.setFont(new Font("Rockwell", Font.PLAIN, 16));
         rdbtnTask.setBounds(159, 243, 115, 35);
         add(rdbtnTask);
@@ -71,31 +80,69 @@ public class AddItemPanel extends JPanel {
         lblTimeEnd.setBounds(277, 302, 89, 31);
         add(lblTimeEnd);
 
-        textField = new JTextField();
-        textField.setFont(new Font("Rockwell", Font.PLAIN, 15));
-        textField.setColumns(10);
-        textField.setBounds(386, 303, 115, 29);
-        add(textField);
+        timeEndTxtField = new JTextField();
+        timeEndTxtField.setFont(new Font("Rockwell", Font.PLAIN, 15));
+        timeEndTxtField.setColumns(10);
+        timeEndTxtField.setBounds(386, 303, 115, 29);
+        add(timeEndTxtField);
 
         JLabel lblItemType = new JLabel("Item Type:");
         lblItemType.setFont(new Font("Rockwell", Font.PLAIN, 16));
         lblItemType.setBounds(30, 203, 89, 31);
         add(lblItemType);
 
-        JButton btnAdd = new JButton("Add");
+        btnAdd = new JButton("Add");
         btnAdd.setFont(new Font("Rockwell", Font.PLAIN, 15));
-        btnAdd.setBounds(159, 397, 97, 35);
+        btnAdd.setBounds(117, 397, 97, 35);
         add(btnAdd);
+        btnAdd.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent arg0) {
+                // TODO Auto-generated method stub
+                JOptionPane.showMessageDialog(new JFrame(), "Item successfully added");
+                //pass data to controller and let it pass to model then add it to csv?
 
-        JButton btnDiscard = new JButton("Discard");
-        btnDiscard.setFont(new Font("Rockwell", Font.PLAIN, 15));
-        btnDiscard.setBounds(277, 397, 97, 35);
-        add(btnDiscard);
+                //reset all text fields to " "
+                reset();
+            }
+        });
+
+        btnCancel = new JButton("Cancel");
+        btnCancel.setFont(new Font("Rockwell", Font.PLAIN, 15));
+        btnCancel.setBounds(314, 397, 97, 35);
+        add(btnCancel);
+        btnCancel.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent arg0) {
+                reset();
+                itemPanel.removeAll();
+                itemPanel.repaint();
+            }
+        });
 
         JLabel lblAddCalendarItem = new JLabel("Add Calendar Item");
         lblAddCalendarItem.setFont(new Font("Rockwell", Font.PLAIN, 20));
         lblAddCalendarItem.setBounds(30, 13, 204, 35);
         add(lblAddCalendarItem);
 
+        btnClear = new JButton("Clear");
+        btnClear.setFont(new Font("Rockwell", Font.PLAIN, 15));
+        btnClear.setBounds(215, 397, 97, 35);
+        add(btnClear);
+        btnClear.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent arg0) {
+                reset();
+            }
+        });
+
+    }
+
+    public void reset() {
+        nameTxtField.setText("");
+        itemTypeGroup.clearSelection();
+        dateTxtField.setText("");
+        timeStarttxtField.setText("");
+        timeEndTxtField.setText("");
     }
 }
