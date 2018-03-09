@@ -15,7 +15,6 @@ import model.DateLabelFormatter;
 import control.MonthViewControl;
 import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
-import org.jdatepicker.impl.UtilDateModel;
 
 public class MonthViewPanel extends JPanel {
 
@@ -57,6 +56,7 @@ public class MonthViewPanel extends JPanel {
             public void actionPerformed(ActionEvent arg0) {
                 JPanel panel = new AddItemPanel(itemPanel, datePicker);
                 panel.setBounds(0, 0, 555, 445);
+
                 itemPanel.removeAll();
                 itemPanel.add(panel);
                 itemPanel.repaint();
@@ -75,7 +75,19 @@ public class MonthViewPanel extends JPanel {
 
         itemGroup = new ButtonGroup();
         itemGroup.add(rdbtnEvent);
+        rdbtnEvent.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent arg0){
+
+            }
+        });
         itemGroup.add(rdbtnTask);
+        rdbtnEvent.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent arg0){
+
+            }
+        });
 
         rdbtnDayView = new JRadioButton("Day View");
         rdbtnDayView.setFont(new Font("Rockwell", Font.PLAIN, 15));
@@ -87,6 +99,7 @@ public class MonthViewPanel extends JPanel {
                 // TODO Auto-generated method stub
                 JPanel dayView = new DayViewPanel();
                 dayView.setBounds(0, 0, 555, 445);
+
                 itemPanel.removeAll();
                 itemPanel.add(dayView);
                 itemPanel.repaint();
@@ -103,6 +116,7 @@ public class MonthViewPanel extends JPanel {
                 // TODO Auto-generated method stub
                 JPanel weekView = new WeekViewPanel();
                 weekView.setBounds(0, 0, 555, 445);
+
                 itemPanel.removeAll();
                 itemPanel.add(weekView);
                 itemPanel.repaint();
@@ -119,6 +133,7 @@ public class MonthViewPanel extends JPanel {
                 // TODO Auto-generated method stub
                 JPanel agendaView = new AgendaViewPanel();
                 agendaView.setBounds(0, 0, 555, 445);
+
                 itemPanel.removeAll();
                 itemPanel.add(agendaView);
                 itemPanel.repaint();

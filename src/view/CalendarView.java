@@ -25,7 +25,6 @@ public class CalendarView {
         mainFrame = new JFrame("Productivity Tool");
         mainFrame.getContentPane().setLayout(null);
         mainFrame.setSize(910, 480);
-
         mainPane = mainFrame.getContentPane();
 
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

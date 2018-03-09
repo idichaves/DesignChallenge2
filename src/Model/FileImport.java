@@ -63,8 +63,8 @@ public abstract class FileImport {
             //sEvent2 = sEvent[sEvent.length - 1];
 //			System.out.println(sEvent2);
 //			System.out.println(events.get(j).getColor());
-            Field field = Class.forName("java.awt.Color").getField(events.get(j).getColor().toLowerCase().trim());
-            color = (Color) field.get(null);
+//            Field field = Class.forName("java.awt.Color").getField(events.get(j).getColor().toLowerCase().trim());
+//            color = (Color) field.get(null);
         } catch (Exception e) {
             e.printStackTrace();
         }

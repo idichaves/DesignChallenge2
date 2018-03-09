@@ -57,7 +57,7 @@ public class CSVImport extends FileImport {
                 write.append(",");
                 write.append(e.getName());
                 write.append(",");
-                write.append(e.getColor());
+//                write.append(e.getColor());
                 pw.println(write.toString());
             }
             pw.close();

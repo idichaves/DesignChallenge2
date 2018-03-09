@@ -59,6 +59,9 @@ public abstract class CalendarItem {
     public void setMinEnd(int minEnd) {
         this.minEnd = minEnd;
     }
+    public String dateToString(){
+        return "" + month + "/" + day + "/" + year;
+    }
     public String timeStartToString() {
         return "" + hrStart + ":" + minStart;
     }
