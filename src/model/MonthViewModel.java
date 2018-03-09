@@ -4,12 +4,11 @@ import java.util.Properties;
 
 import org.jdatepicker.impl.UtilCalendarModel;
 
-public class CalendarModel {
-
+public class MonthViewModel {
     private UtilCalendarModel dateModel;
     private Properties properties;
 
-    public CalendarModel() {
+    public MonthViewModel() {
         dateModel = new UtilCalendarModel();
         properties = new Properties();
         properties.put("text.today", "Today");

@@ -1,16 +1,16 @@
 package control;
 
 import view.MonthViewPanel;
-import model.CalendarModel;
+import model.MonthViewModel;
 
 public class MonthViewControl {
 
     private MonthViewPanel view;
-    private CalendarModel model;
+    private MonthViewModel model;
 
     public MonthViewControl(MonthViewPanel view){
         this.view = view;
-        model = new CalendarModel();
+        model = new MonthViewModel();
         view.addDatePicker(model);
     }
 
@@ -18,7 +18,7 @@ public class MonthViewControl {
         return view;
     }
 
-    public CalendarModel getModel(){
+    public MonthViewModel getModel(){
         return model;
     }
 }

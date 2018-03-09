@@ -4,13 +4,12 @@ import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
-import java.util.Properties;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
 import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
 
-import model.CalendarModel;
+import model.MonthViewModel;
 import model.DateLabelFormatter;
 import control.MonthViewControl;
 import org.jdatepicker.impl.JDatePanelImpl;
@@ -18,8 +17,6 @@ import org.jdatepicker.impl.JDatePickerImpl;
 
 public class MonthViewPanel extends JPanel {
 
-    private JLabel lblFilterItems;
-    private JLabel lblViewType;
     private JDatePanelImpl monthCalPanel;
     private JDatePickerImpl datePicker;
     private JButton btnAddItem;
@@ -35,14 +32,14 @@ public class MonthViewPanel extends JPanel {
     public MonthViewPanel(JPanel itemPanel) {
         setLayout(null);
 
-        lblFilterItems = new JLabel("Filter Items");
+        JLabel lblFilterItems = new JLabel("Filter Items");
         lblFilterItems.setFont(new Font("Rockwell", Font.PLAIN, 15));
         lblFilterItems.setBounds(20, 194, 97, 25);
         add(lblFilterItems);
 
         controller = new MonthViewControl(this);
 
-        lblViewType = new JLabel("View Type");
+        JLabel lblViewType = new JLabel("View Type");
         lblViewType.setFont(new Font("Rockwell", Font.PLAIN, 15));
         lblViewType.setBounds(177, 194, 97, 25);
         add(lblViewType);
@@ -146,7 +143,7 @@ public class MonthViewPanel extends JPanel {
         viewGroup.add(rdbtnAgendaView);
     }
 
-    public void addDatePicker(CalendarModel model){
+    public void addDatePicker(MonthViewModel model){
         monthCalPanel = new JDatePanelImpl(model.getDateModel(), model.getProperties());
         datePicker = new JDatePickerImpl(monthCalPanel, new DateLabelFormatter());
         datePicker.setBounds(0, 0, 334, 25);

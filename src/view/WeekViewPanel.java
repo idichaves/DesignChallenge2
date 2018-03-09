@@ -35,8 +35,10 @@ public class WeekViewPanel extends JPanel {
     }
 
     // for controller to add columns/dates to the week table
-    public void addTableColumn(String header){
+    public void addTableColumn(String header /* or 2D array */){
         weekTableModel.addColumn(header);
+        //weekTableModel.setDataVector(); set the table's contents on the first 2d array param, set the table's column headers on the second array param.
         weekTable.repaint();
     }
+
 }
