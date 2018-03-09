@@ -15,18 +15,26 @@ public class CalendarView {
     private JPanel contentView;
 
     public CalendarView() {
-        try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
+
 
         mainFrame = new JFrame("Productivity Tool");
         mainFrame.getContentPane().setLayout(null);
         mainFrame.setSize(910, 480);
         mainPane = mainFrame.getContentPane();
-
+        try {
+            mainFrame.setUndecorated(true);
+            UIManager.setLookAndFeel("napkin.NapkinLookAndFeel");
+            mainFrame.setUndecorated(false);
+        }
+        catch (Exception e) {
+            mainFrame.setUndecorated(false);
+            try {
+                UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            }
+            catch (Exception ab) {
+                ab.printStackTrace();
+            }
+        }
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainFrame.setResizable(false);
 
