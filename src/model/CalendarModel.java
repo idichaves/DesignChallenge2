@@ -5,7 +5,6 @@ import java.util.Properties;
 import org.jdatepicker.impl.UtilCalendarModel;
 
 public class CalendarModel {
-
     private UtilCalendarModel dateModel;
     private Properties properties;
 
