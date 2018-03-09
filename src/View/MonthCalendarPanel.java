@@ -104,12 +104,5 @@ public class MonthCalendarPanel extends JPanel {
         add(lblYear);
     }
 
-    private void initActionsListener(){
-        cmbYear.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
 
-            }
-        });
-    }
 }
