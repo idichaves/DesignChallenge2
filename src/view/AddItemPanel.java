@@ -4,9 +4,6 @@ import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-
-import org.jdatepicker.impl.JDatePickerImpl;
-
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,6 +11,9 @@ import javax.swing.JRadioButton;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.ButtonGroup;
+
+import org.jdatepicker.impl.JDatePickerImpl;
+import control.AddItemControl;
 
 public class AddItemPanel extends JPanel {
 
@@ -27,9 +27,12 @@ public class AddItemPanel extends JPanel {
     private JButton btnAdd;
     private JButton btnCancel;
     private JButton btnClear;
+    private AddItemControl addItemController;
 
     public AddItemPanel(JPanel itemPanel, JDatePickerImpl datePicker) {
         setLayout(null);
+
+        addItemController = new AddItemControl();
 
         JLabel lblName = new JLabel("Name:");
         lblName.setFont(new Font("Rockwell", Font.PLAIN, 16));

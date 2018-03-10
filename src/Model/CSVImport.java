@@ -1,6 +1,7 @@
 package model;
+//TODO: MODIFY WRITE
+//Last Modified: 03/09/2018 - 11:07PM
 
-import java.awt.*;
 import java.io.FileReader;
 import java.io.BufferedReader;
 import java.io.FileWriter;
@@ -11,27 +12,36 @@ public class CSVImport extends FileImport {
 
     public CSVImport() {
         this.fileName = "EventsToDo.csv";
-        events = new ArrayList<>();
-        readData();
+        calendarItems = new ArrayList<>();
     }
+
     //format: date, name of event, color
     @Override
     public void readData() {
         // TODO read data from csv file
         try {
+            while(!calendarItems.isEmpty())
+                calendarItems.remove(0);
+
             FileReader r = new FileReader(fileName);
             BufferedReader bf = new BufferedReader(r);
-
             while (bf.ready()) {
                 String line;
                 line = bf.readLine();
                 String[] event = line.split(",");
-                String[] date = event[0].split("/");
-                //NEED TO EDIT THIS TO INCLUDE TIMES
-                /*Event e = new Event(Integer.parseInt(date[0]) - 1, Integer.parseInt(date[1]),
-                        Integer.parseInt(date[2]), event[1], event[2], "csv");*/
-                //events.add(e);
-
+//                String[] arrDate = event[nDateIndex].split("/");// mm/dd/yyyy format
+//                String[] arrStartTime = event[nStartTimeIndex].trim().split(":"); //hh:mm
+//                String[] arrEndTime = event[nEndTimeIndex].trim().split(":"); //hh:mm
+                String sType = event[nTypeIndex].trim();
+                String sName = event[nNameIndex].trim();
+                String sColor = event[nColorIndex];
+                if(isEvent(sType))
+                    calendarItems.add(new Event(event[nDateIndex].trim(), event[nStartTimeIndex].trim(), event[nEndTimeIndex].trim(),
+                            sName, sColor, isHoliday(sType)));
+                else if(isToDo(sType))
+                    calendarItems.add(new ToDo(event[nDateIndex].trim(), event[nStartTimeIndex].trim(), event[nEndTimeIndex].trim(),
+                            sName, sColor));
+                /******append conditional statements here for additional types of events follow previous examples******/
             }
             bf.close();
             r.close();
@@ -39,25 +49,48 @@ public class CSVImport extends FileImport {
             e.printStackTrace();
         }
     }
-    //@Override
-    public void writeData(Event event) {
-        if(!event.getName().equalsIgnoreCase("default"))
-            events.add(event);
+
+    /****   Calendar item type checkers     ****/
+    private boolean isEvent(String sType){
+        return sType.toLowerCase().contains("event") ||
+                sType.toLowerCase().contains("holiday") ||
+                sType.toLowerCase().contains("festival");
+    }
+
+    private boolean isToDo(String sType){
+        return sType.trim().equalsIgnoreCase("todo");
+    }
+    /**** End of calendar item type checkers ****/
+
+    //Checks if event is holiday
+    public boolean isHoliday(String sType){
+        return sType.toLowerCase().contains("holiday");
+    }
+
+    @Override
+    public void writeData(CalendarItem calendarItem) {
+        if(calendarItem != null)
+            calendarItems.add(calendarItem);
+
         try {
             FileWriter w = new FileWriter(fileName);
             PrintWriter pw = new PrintWriter(w);
-            for(int i = 0; i < events.size(); i++) {
+            for(int i = 0; i < calendarItems.size(); i++) {
                 StringBuilder write = new StringBuilder();
-                Event e = events.get(i);
-                write.append(e.getMonth());
-                write.append("/");
-                write.append(e.getDay());
-                write.append("/");
-                write.append(e.getYear());
-                write.append(",");
-                write.append(e.getName());
-                write.append(",");
-//                write.append(e.getColor());
+                CalendarItem e = calendarItems.get(i);
+                write.append(e.dateToString() + ","); // 1st sep
+                write.append(e.getName() + ",");//2nd sep
+                /*** TODO: CREATE A METHOD for append so that each instance has its own***/
+                if(e instanceof ToDo)
+                    write.append("ToDo");
+                else if (e instanceof Event && ((Event) e).isHoliday())
+                    write.append("Holiday");
+                else
+                    write.append("Event");
+                write.append(","); //3rd sep
+                write.append(e.timeStartToString() + ",");//4th sep
+                write.append(e.timeEndToString() + ",");//5th sep
+                write.append(e.getColor() + ","); //6th sep final
                 pw.println(write.toString());
             }
             pw.close();
@@ -66,18 +99,14 @@ public class CSVImport extends FileImport {
             e.printStackTrace();
         }
     }
-    //	public Color findColor(){
-//		Color color = null;
-//		for (int i = 0; i < ; i++) {
-//
-//		}
-//		return color;
-//	}
+
     @Override
-    public void setFileName(String fileName) {
-        this.fileName = fileName;
+    public ArrayList<CalendarItem> getCalendarItems() {
+        readData();
+        return super.getCalendarItems();
     }
-//
+
+    /*** Modify if this method will be used ***/
 //	public Color findColor(int year, int month, int day, String[] sEvent){
 //		Color color = null;
 //		String sEvent2 = sEvent[0];
@@ -95,14 +124,8 @@ public class CSVImport extends FileImport {
 //		}
 //		return color;
 //	}
+/***                                    ***/
 
-    @Override
-    public Color findColor(int year, int month, int day, String[] sEvent) {
-        return super.findColor(year, month, day, sEvent);
-    }
 
-    @Override
-    public String getFileName(){
-        return super.getFileName();
-    }
+
 }
