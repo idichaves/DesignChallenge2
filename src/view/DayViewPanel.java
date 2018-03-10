@@ -29,6 +29,7 @@ public class DayViewPanel extends JPanel {
         };
         tableModel.setColumnIdentifiers(new String[] {"Time", "Item"});
 <<<<<<< HEAD
+<<<<<<< HEAD
             for (int i = 0; i < 24; i++) {
                 int hr = i + 1;
                 if(hr <= 12) {
@@ -45,6 +46,8 @@ public class DayViewPanel extends JPanel {
 
 
 =======
+=======
+>>>>>>> 95ac90dae8816729f99509cf4efa3a233f35c535
         
         for (int i = 0; i < 24; i++) {
             if(i+1 <= 12)
