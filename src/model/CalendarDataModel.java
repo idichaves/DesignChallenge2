@@ -1,15 +1,15 @@
-import model.*;
-
+package model;
 
 import java.util.ArrayList;
-//Last Modified: 03/09/2018 - 11:01PM
-public class Model {
+
+public class CalendarDataModel {
+
     private ArrayList<CalendarItem> calendarItems;
     private MonthViewModel monthViewModel;
     private DateLabelFormatter dateLabelFormatter;
     private ArrayList<FileImport> fileImporters;
 
-    public Model(){
+    public CalendarDataModel(){
         calendarItems = new ArrayList<>();
         fileImporters = new ArrayList<>();
         fileImporters.add(new CSVImport());
@@ -20,7 +20,7 @@ public class Model {
     //gets content from file
     public ArrayList<CalendarItem> getCalendarItems() {
         for (int i = 0; i < fileImporters.size(); i++) {
-           ArrayList<CalendarItem> temp =  fileImporters.get(i).getCalendarItems();
+            ArrayList<CalendarItem> temp =  fileImporters.get(i).getCalendarItems();
             for (int j = 0; j < temp.size(); j++)
                 calendarItems.add(temp.get(j));
         }
@@ -38,5 +38,10 @@ public class Model {
 
     public ArrayList<FileImport> getFileImporters() {
         return fileImporters;
+    }
+
+    //for controller's use
+    public void addCalendarItem(CalendarItem item){
+        calendarItems.add(item);
     }
 }

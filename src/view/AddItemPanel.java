@@ -4,9 +4,6 @@ import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-
-import org.jdatepicker.impl.JDatePickerImpl;
-
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,6 +11,10 @@ import javax.swing.JRadioButton;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.ButtonGroup;
+
+import model.CalendarDataModel;
+import org.jdatepicker.impl.JDatePickerImpl;
+import control.AddItemControl;
 
 public class AddItemPanel extends JPanel {
 
@@ -27,9 +28,12 @@ public class AddItemPanel extends JPanel {
     private JButton btnAdd;
     private JButton btnCancel;
     private JButton btnClear;
+    private AddItemControl addItemController;
 
-    public AddItemPanel(JPanel itemPanel, JDatePickerImpl datePicker) {
+    public AddItemPanel(JPanel itemPanel, JDatePickerImpl datePicker, CalendarDataModel model) {
         setLayout(null);
+
+        addItemController = new AddItemControl(model);
 
         JLabel lblName = new JLabel("Name:");
         lblName.setFont(new Font("Rockwell", Font.PLAIN, 16));
@@ -40,7 +44,7 @@ public class AddItemPanel extends JPanel {
         nameTxtField.setFont(new Font("Rockwell", Font.PLAIN, 15));
         nameTxtField.setBounds(131, 74, 370, 29);
         add(nameTxtField);
-        //nameTxtField.setColumns(10);
+
 
         rdbtnEvent = new JRadioButton("Event");
         rdbtnEvent.setFont(new Font("Rockwell", Font.PLAIN, 16));
@@ -103,13 +107,23 @@ public class AddItemPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent arg0) {
                 // TODO Auto-generated method stub
-                JOptionPane.showMessageDialog(new JFrame(), "Item successfully added");
                 //pass data to controller and let it pass to model then add it to csv?
-
-                //reset all text fields to " "
-                reset();
-                itemPanel.removeAll();
-                itemPanel.repaint();
+                if (isGood()) {
+                    JOptionPane.showMessageDialog(new JFrame(), "Item successfully added", "Prompt", JOptionPane.INFORMATION_MESSAGE);
+                    if (rdbtnEvent.isSelected())
+                        addItemController.passToModel(dateTxtField.getText(), timeStarttxtField.getText(),
+                                timeEndTxtField.getText(), nameTxtField.getText(), rdbtnEvent.getText());
+                    else
+                        addItemController.passToModel(dateTxtField.getText(), timeStarttxtField.getText(),
+                                timeEndTxtField.getText(), nameTxtField.getText(), rdbtnTask.getText());
+                    //reset all text fields to " "
+                    reset();
+                    itemPanel.removeAll();
+                    itemPanel.repaint();
+                }
+                else{
+                    JOptionPane.showMessageDialog(new JFrame(), "Empty field(s) found!", "Empty Field", JOptionPane.OK_OPTION);
+                }
             }
         });
 
@@ -157,5 +171,15 @@ public class AddItemPanel extends JPanel {
         dateTxtField.setText("");
         timeStarttxtField.setText("");
         timeEndTxtField.setText("");
+    }
+
+    private boolean isGood(){
+        boolean good = false;
+        if (!nameTxtField.getText().equals("") && !dateTxtField.getText().equals("") &&
+            !timeStarttxtField.getText().equals("") && !timeEndTxtField.getText().equals("") &&
+            (itemTypeGroup.isSelected(rdbtnEvent.getModel()) || itemTypeGroup.isSelected(rdbtnTask.getModel())))
+            good = true;
+
+        return good;
     }
 }

@@ -37,10 +37,10 @@ public class CSVImport extends FileImport {
                 String sColor = event[nColorIndex];
                 if(isEvent(sType))
                     calendarItems.add(new Event(event[nDateIndex].trim(), event[nStartTimeIndex].trim(), event[nEndTimeIndex].trim(),
-                            sName, sColor, isHoliday(sType)));
+                            sName));
                 else if(isToDo(sType))
                     calendarItems.add(new ToDo(event[nDateIndex].trim(), event[nStartTimeIndex].trim(), event[nEndTimeIndex].trim(),
-                            sName, sColor));
+                            sName));
                 /******append conditional statements here for additional types of events follow previous examples******/
             }
             bf.close();
@@ -78,19 +78,17 @@ public class CSVImport extends FileImport {
             for(int i = 0; i < calendarItems.size(); i++) {
                 StringBuilder write = new StringBuilder();
                 CalendarItem e = calendarItems.get(i);
+
                 write.append(e.dateToString() + ","); // 1st sep
                 write.append(e.getName() + ",");//2nd sep
                 /*** TODO: CREATE A METHOD for append so that each instance has its own***/
                 if(e instanceof ToDo)
                     write.append("ToDo");
-                else if (e instanceof Event && ((Event) e).isHoliday())
-                    write.append("Holiday");
-                else
+                else //if (e instanceof Event)
                     write.append("Event");
                 write.append(","); //3rd sep
                 write.append(e.timeStartToString() + ",");//4th sep
                 write.append(e.timeEndToString() + ",");//5th sep
-                write.append(e.getColor() + ","); //6th sep final
                 pw.println(write.toString());
             }
             pw.close();
