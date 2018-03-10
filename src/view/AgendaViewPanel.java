@@ -10,12 +10,12 @@ public class AgendaViewPanel extends JPanel {
     private static final long serialVersionUID = 1L;
     private JTextArea agendaTextArea;
 
-    public AgendaViewPanel() { //ArrayList<CalendarItem> calendarItems
+    public AgendaViewPanel(String date) { //ArrayList<CalendarItem> calendarItems
         setLayout(null);
 
-        JLabel lblAgenda = new JLabel("Agenda for Today");
+        JLabel lblAgenda = new JLabel("Agenda for " + date);
         lblAgenda.setFont(new Font("Rockwell", Font.PLAIN, 20));
-        lblAgenda.setBounds(30, 13, 204, 35);
+        lblAgenda.setBounds(30, 13, 250, 35);
         add(lblAgenda);
 
         //TODO: Add loop here to check if date in each event matches the data to day then use insert
