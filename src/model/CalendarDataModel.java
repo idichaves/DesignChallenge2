@@ -42,6 +42,7 @@ public class CalendarDataModel {
 
     //for controller's use
     public void addCalendarItem(CalendarItem item){
-        calendarItems.add(item);
+        for (int i = 0; i < fileImporters.size(); i++)
+            fileImporters.get(i).writeData(item);
     }
 }

@@ -141,11 +141,19 @@ public class MonthViewPanel extends JPanel {
         viewGroup.add(rdbtnDayView);
         viewGroup.add(rdbtnWeekView);
         viewGroup.add(rdbtnAgendaView);
+//        for (int i = 0; i < datePicker.getComponentCount(); i++) {
+//            if(datePicker.getComponent(i) instanceof JButton) {
+//                System.out.println(((JButton) datePicker.getComponent(i)).getActionListeners()[0].;;
+////                ((JButton)datePicker.getComponent(i)).setVisible(false);
+//                break;
+//            }
+//        }
     }
 
     public void addDatePicker(MonthViewModel model){
         monthCalPanel = new JDatePanelImpl(model.getDateModel(), model.getProperties());
         datePicker = new JDatePickerImpl(monthCalPanel, new DateLabelFormatter());
+        datePicker.setShowYearButtons(true);
         datePicker.setBounds(0, 0, 334, 25);
         add(datePicker);
     }
