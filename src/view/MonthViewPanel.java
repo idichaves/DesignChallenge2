@@ -94,7 +94,7 @@ public class MonthViewPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent arg0) {
                 // TODO Auto-generated method stub
-                JPanel dayView = new DayViewPanel();
+                JPanel dayView = new DayViewPanel(datePicker);
                 dayView.setBounds(0, 0, 555, 445);
 
                 itemPanel.removeAll();
@@ -128,7 +128,7 @@ public class MonthViewPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // TODO Auto-generated method stub
-                JPanel agendaView = new AgendaViewPanel();
+                JPanel agendaView = new AgendaViewPanel(datePicker.getJFormattedTextField().getText());
                 agendaView.setBounds(0, 0, 555, 445);
 
                 itemPanel.removeAll();

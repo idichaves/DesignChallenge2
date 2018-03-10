@@ -109,17 +109,21 @@ public class AddItemPanel extends JPanel {
                 // TODO Auto-generated method stub
                 //pass data to controller and let it pass to model then add it to csv?
                 if (isGood()) {
-                    JOptionPane.showMessageDialog(new JFrame(), "Item successfully added", "Prompt", JOptionPane.INFORMATION_MESSAGE);
-                    if (rdbtnEvent.isSelected())
-                        addItemController.passToModel(dateTxtField.getText(), timeStarttxtField.getText(),
-                                timeEndTxtField.getText(), nameTxtField.getText(), rdbtnEvent.getText());
-                    else
-                        addItemController.passToModel(dateTxtField.getText(), timeStarttxtField.getText(),
-                                timeEndTxtField.getText(), nameTxtField.getText(), rdbtnTask.getText());
-                    //reset all text fields to " "
-                    reset();
-                    itemPanel.removeAll();
-                    itemPanel.repaint();
+                    if (isTimeValid()) {
+                        JOptionPane.showMessageDialog(new JFrame(), "Item successfully added", "Prompt", JOptionPane.INFORMATION_MESSAGE);
+                        if (rdbtnEvent.isSelected())
+                            addItemController.passToModel(dateTxtField.getText(), timeStarttxtField.getText(),
+                                    timeEndTxtField.getText(), nameTxtField.getText(), rdbtnEvent.getText());
+                        else
+                            addItemController.passToModel(dateTxtField.getText(), timeStarttxtField.getText(),
+                                    timeEndTxtField.getText(), nameTxtField.getText(), rdbtnTask.getText());
+
+                        itemPanel.removeAll();
+                        itemPanel.repaint();
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(new JFrame(), "Invalid Time!", "Invalid Time", JOptionPane.OK_OPTION);
+                    }
                 }
                 else{
                     JOptionPane.showMessageDialog(new JFrame(), "Empty field(s) found!", "Empty Field", JOptionPane.OK_OPTION);
@@ -181,5 +185,20 @@ public class AddItemPanel extends JPanel {
             good = true;
 
         return good;
+    }
+
+    private boolean isTimeValid(){
+        String[] timeStart = timeStarttxtField.getText().split(":");
+        String[] timeEnd = timeEndTxtField.getText().split(":");
+        boolean valid = true;
+
+        if (Integer.parseInt(timeStart[0]) > Integer.parseInt(timeEnd[0])){
+            valid = false;
+        }
+        else if (Integer.parseInt(timeStart[1]) >= Integer.parseInt(timeEnd[1])){
+            valid = false;
+        }
+
+        return valid;
     }
 }
