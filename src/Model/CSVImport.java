@@ -13,6 +13,7 @@ public class CSVImport extends FileImport {
     public CSVImport() {
         this.fileName = "EventsToDo.csv";
         calendarItems = new ArrayList<>();
+        readData();
     }
 
     //format: date, name of event, color
@@ -20,6 +21,7 @@ public class CSVImport extends FileImport {
     public void readData() {
         // TODO read data from csv file
         try {
+            String sColor = "none";
             while(!calendarItems.isEmpty())
                 calendarItems.remove(0);
 
@@ -34,7 +36,8 @@ public class CSVImport extends FileImport {
 //                String[] arrEndTime = event[nEndTimeIndex].trim().split(":"); //hh:mm
                 String sType = event[nTypeIndex].trim();
                 String sName = event[nNameIndex].trim();
-                String sColor = event[nColorIndex];
+                if(nColorIndex < event.length)
+                    sColor = event[nColorIndex];
                 if(isEvent(sType))
                     calendarItems.add(new Event(event[nDateIndex].trim(), event[nStartTimeIndex].trim(), event[nEndTimeIndex].trim(),
                             sName));
