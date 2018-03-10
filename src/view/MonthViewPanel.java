@@ -11,6 +11,7 @@ import javax.swing.ButtonGroup;
 
 import model.MonthViewModel;
 import model.DateLabelFormatter;
+import model.CalendarDataModel;
 import control.MonthViewControl;
 import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
@@ -29,15 +30,14 @@ public class MonthViewPanel extends JPanel {
     private ButtonGroup viewGroup;
     private MonthViewControl controller;
 
-    public MonthViewPanel(JPanel itemPanel) {
+    public MonthViewPanel(JPanel itemPanel, CalendarDataModel model) {
         setLayout(null);
+        controller = new MonthViewControl(this);
 
         JLabel lblFilterItems = new JLabel("Filter Items");
         lblFilterItems.setFont(new Font("Rockwell", Font.PLAIN, 15));
         lblFilterItems.setBounds(20, 194, 97, 25);
         add(lblFilterItems);
-
-        controller = new MonthViewControl(this);
 
         JLabel lblViewType = new JLabel("View Type");
         lblViewType.setFont(new Font("Rockwell", Font.PLAIN, 15));
@@ -51,7 +51,7 @@ public class MonthViewPanel extends JPanel {
         btnAddItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent arg0) {
-                JPanel panel = new AddItemPanel(itemPanel, datePicker);
+                JPanel panel = new AddItemPanel(itemPanel, datePicker, model);
                 panel.setBounds(0, 0, 555, 445);
 
                 itemPanel.removeAll();

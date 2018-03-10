@@ -1,20 +1,23 @@
 package control;
 
-import model.CalendarItem;
 import model.Event;
 import model.ToDo;
 import model.CalendarDataModel;
-import view.AddItemPanel;
 
 public class AddItemControl {
 
-    private AddItemPanel view;
+    private CalendarDataModel model;
 
-    public AddItemControl(AddItemPanel view){
-        this.view = view;
+    public AddItemControl(CalendarDataModel model){
+        this.model = model;
     }
 
-    public void passToModel(CalendarItem item){
-
+    public void passToModel(String date, String timeStart, String timeEnd, String name, String itemType){
+        if (itemType.equalsIgnoreCase("Event")){
+            model.addCalendarItem(new Event(date, timeStart, timeEnd, name));
+        }
+        else {
+            model.addCalendarItem(new ToDo(date, timeStart, timeEnd, name));
+        }
     }
 }
