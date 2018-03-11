@@ -33,7 +33,7 @@ public class AddItemPanel extends JPanel {
     public AddItemPanel(JPanel itemPanel, JDatePickerImpl datePicker, CalendarDataModel model) {
         setLayout(null);
 
-        addItemController = new AddItemControl(model);
+        addItemController = new AddItemControl();
 
         JLabel lblName = new JLabel("Name:");
         lblName.setFont(new Font("Rockwell", Font.PLAIN, 16));
@@ -108,25 +108,31 @@ public class AddItemPanel extends JPanel {
             public void actionPerformed(ActionEvent arg0) {
                 // TODO Auto-generated method stub
                 //pass data to controller and let it pass to model then add it to csv?
-                if (isGood()) {
-                    if (isTimeValid()) {
-                        JOptionPane.showMessageDialog(new JFrame(), "Item successfully added", "Prompt", JOptionPane.INFORMATION_MESSAGE);
-                        if (rdbtnEvent.isSelected())
-                            addItemController.passToModel(dateTxtField.getText(), timeStarttxtField.getText(),
+                //checkNoOverlap meaning there is no overlap
+                if (isGood() && isTimeValid()){
+                    if (rdbtnEvent.isSelected()) {
+                        if (addItemController.checkNoOverlap(model, dateTxtField.getText(), timeStarttxtField.getText(), timeEndTxtField.getText(), rdbtnEvent.getText())) {
+                            addItemController.passToModel(model, dateTxtField.getText(), timeStarttxtField.getText(),
                                     timeEndTxtField.getText(), nameTxtField.getText(), rdbtnEvent.getText());
+                            JOptionPane.showMessageDialog(new JFrame(), "Item successfully added", "Prompt", JOptionPane.INFORMATION_MESSAGE);
+                            reset();
+                        }
                         else
-                            addItemController.passToModel(dateTxtField.getText(), timeStarttxtField.getText(),
-                                    timeEndTxtField.getText(), nameTxtField.getText(), rdbtnTask.getText());
-
-                        itemPanel.removeAll();
-                        itemPanel.repaint();
+                            JOptionPane.showMessageDialog(new JFrame(), "Item overlap(s) detected!", "Error", JOptionPane.OK_OPTION);
                     }
-                    else{
-                        JOptionPane.showMessageDialog(new JFrame(), "Invalid Time!", "Invalid Time", JOptionPane.OK_OPTION);
+                    else {
+                        if (addItemController.checkNoOverlap(model, dateTxtField.getText(), timeStarttxtField.getText(), timeEndTxtField.getText(), rdbtnTask.getText())) {
+                            addItemController.passToModel(model, dateTxtField.getText(), timeStarttxtField.getText(),
+                                    timeEndTxtField.getText(), nameTxtField.getText(), rdbtnTask.getText());
+                            JOptionPane.showMessageDialog(new JFrame(), "Item successfully added", "Prompt", JOptionPane.INFORMATION_MESSAGE);
+                            reset();
+                        }
+                        else
+                            JOptionPane.showMessageDialog(new JFrame(), "Item overlap(s) detected!", "Error", JOptionPane.OK_OPTION);
                     }
                 }
                 else{
-                    JOptionPane.showMessageDialog(new JFrame(), "Empty field(s) found!", "Empty Field", JOptionPane.OK_OPTION);
+                    JOptionPane.showMessageDialog(new JFrame(), "Invalid field(s) found", "Error", JOptionPane.OK_OPTION);
                 }
             }
         });
@@ -195,8 +201,9 @@ public class AddItemPanel extends JPanel {
         if (Integer.parseInt(timeStart[0]) > Integer.parseInt(timeEnd[0])){
             valid = false;
         }
-        else if (Integer.parseInt(timeStart[1]) >= Integer.parseInt(timeEnd[1])){
-            valid = false;
+        else if (Integer.parseInt(timeStart[0]) == Integer.parseInt(timeEnd[0])) {
+            if (Integer.parseInt(timeStart[1]) >= Integer.parseInt(timeEnd[1]))
+                valid = false;
         }
 
         return valid;
