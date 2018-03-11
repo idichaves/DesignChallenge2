@@ -10,7 +10,8 @@ public class WeekViewPanel extends JPanel {
     private JTable weekTable;
     private JScrollPane scrollWeekTable;
 
-    public WeekViewPanel() {
+    //append additional parameters in front of filterType
+    public WeekViewPanel(String filterType) {
         setLayout(null);
 
         JLabel lblThisWeek = new JLabel("This Week");

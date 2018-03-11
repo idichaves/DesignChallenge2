@@ -10,7 +10,7 @@ public class AgendaViewPanel extends JPanel {
     private static final long serialVersionUID = 1L;
     private JTextArea agendaTextArea;
 
-    public AgendaViewPanel(String date) { //ArrayList<CalendarItem> calendarItems
+    public AgendaViewPanel(String date, String filterType) { //ArrayList<CalendarItem> calendarItems
         setLayout(null);
 
         JLabel lblAgenda = new JLabel("Agenda for " + date);

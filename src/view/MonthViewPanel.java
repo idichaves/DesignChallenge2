@@ -23,6 +23,7 @@ public class MonthViewPanel extends JPanel {
     private JButton btnAddItem;
     private JRadioButton rdbtnEvent;
     private JRadioButton rdbtnTask;
+    private JRadioButton rdbtnAll;
     private JRadioButton rdbtnDayView;
     private JRadioButton rdbtnWeekView;
     private JRadioButton rdbtnAgendaView;
@@ -64,27 +65,76 @@ public class MonthViewPanel extends JPanel {
 
         rdbtnEvent = new JRadioButton("Event");
         rdbtnEvent.setFont(new Font("Rockwell", Font.PLAIN, 15));
-        rdbtnEvent.setBounds(20, 228, 84, 33);
+        rdbtnEvent.setBounds(20, 228, 84, 30);
         add(rdbtnEvent);
 
         rdbtnTask = new JRadioButton("Task");
         rdbtnTask.setFont(new Font("Rockwell", Font.PLAIN, 15));
-        rdbtnTask.setBounds(20, 275, 84, 33);
+        rdbtnTask.setBounds(20, 264, 84, 30);
         add(rdbtnTask);
+
+        rdbtnAll = new JRadioButton("All");
+        rdbtnAll.setFont(new Font("Rockwell", Font.PLAIN, 15));
+        rdbtnAll.setBounds(20, 299, 84, 30);
+        add(rdbtnAll);
+        rdbtnAll.setSelected(true);
 
         itemGroup = new ButtonGroup();
         itemGroup.add(rdbtnEvent);
         rdbtnEvent.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent arg0){
+                JPanel eventView = new JPanel();
+                if(rdbtnDayView.isSelected())
+                    eventView = new DayViewPanel(datePicker, model.getCalendarItems(), rdbtnEvent.getText());
+                else if (rdbtnWeekView.isSelected())
+                    eventView = new WeekViewPanel(rdbtnEvent.getText());
+                else if (rdbtnAgendaView.isSelected())
+                    eventView = new AgendaViewPanel(datePicker.getJFormattedTextField().getText(), rdbtnEvent.getText());
 
+
+                eventView.setBounds(0, 0, 555,445);
+                itemPanel.removeAll();
+                itemPanel.add(eventView);
+                itemPanel.repaint();
             }
         });
         itemGroup.add(rdbtnTask);
         rdbtnTask.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent arg0){
+                JPanel eventView = new JPanel();
+                if(rdbtnDayView.isSelected())
+                    eventView = new DayViewPanel(datePicker, model.getCalendarItems(), rdbtnTask.getText());
+                else if (rdbtnWeekView.isSelected())
+                    eventView = new WeekViewPanel(rdbtnTask.getText());
+                else if (rdbtnAgendaView.isSelected())
+                    eventView = new AgendaViewPanel(datePicker.getJFormattedTextField().getText(), rdbtnTask.getText());
 
+
+                eventView.setBounds(0, 0, 555,445);
+                itemPanel.removeAll();
+                itemPanel.add(eventView);
+                itemPanel.repaint();
+            }
+        });
+        itemGroup.add(rdbtnAll);
+        rdbtnAll.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JPanel eventView = new JPanel();
+                if(rdbtnDayView.isSelected())
+                    eventView = new DayViewPanel(datePicker, model.getCalendarItems(), rdbtnAll.getText());
+                else if (rdbtnWeekView.isSelected())
+                    eventView = new WeekViewPanel(rdbtnAll.getText());
+                else if (rdbtnAgendaView.isSelected())
+                    eventView = new AgendaViewPanel(datePicker.getJFormattedTextField().getText(), rdbtnAll.getText());
+
+
+                eventView.setBounds(0, 0, 555,445);
+                itemPanel.removeAll();
+                itemPanel.add(eventView);
+                itemPanel.repaint();
             }
         });
 
@@ -96,9 +146,15 @@ public class MonthViewPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent arg0) {
                 // TODO Auto-generated method stub
-                JPanel dayView = new DayViewPanel(datePicker, model.getCalendarItems());
-                dayView.setBounds(0, 0, 555, 445);
+                JPanel dayView = new JPanel();
+                if (rdbtnEvent.isSelected())
+                    dayView = new DayViewPanel(datePicker, model.getCalendarItems(), rdbtnEvent.getText());
+                else if (rdbtnTask.isSelected())
+                    dayView = new DayViewPanel(datePicker, model.getCalendarItems(), rdbtnTask.getText());
+                else
+                    dayView = new DayViewPanel(datePicker, model.getCalendarItems(), rdbtnAll.getText());
 
+                dayView.setBounds(0, 0, 555, 445);
                 itemPanel.removeAll();
                 itemPanel.add(dayView);
                 itemPanel.repaint();
@@ -113,9 +169,15 @@ public class MonthViewPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // TODO Auto-generated method stub
-                JPanel weekView = new WeekViewPanel();
-                weekView.setBounds(0, 0, 555, 445);
+                JPanel weekView = new JPanel();
+                if (rdbtnEvent.isSelected())
+                    weekView = new WeekViewPanel(rdbtnEvent.getText());
+                else if (rdbtnTask.isSelected())
+                    weekView = new WeekViewPanel(rdbtnTask.getText());
+                else
+                    weekView = new WeekViewPanel(rdbtnAll.getText());
 
+                weekView.setBounds(0, 0, 555, 445);
                 itemPanel.removeAll();
                 itemPanel.add(weekView);
                 itemPanel.repaint();
@@ -130,19 +192,32 @@ public class MonthViewPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // TODO Auto-generated method stub
-                JPanel agendaView = new AgendaViewPanel(datePicker.getJFormattedTextField().getText());
-                agendaView.setBounds(0, 0, 555, 445);
+                JPanel agendaView = new JPanel();
+                if(rdbtnEvent.isSelected())
+                    agendaView = new AgendaViewPanel(datePicker.getJFormattedTextField().getText(), rdbtnEvent.getText());
+                else if (rdbtnTask.isSelected())
+                    agendaView = new AgendaViewPanel(datePicker.getJFormattedTextField().getText(), rdbtnTask.getText());
+                else
+                    agendaView = new AgendaViewPanel(datePicker.getJFormattedTextField().getText(), rdbtnTask.getText());
 
+                agendaView.setBounds(0, 0, 555, 445);
                 itemPanel.removeAll();
                 itemPanel.add(agendaView);
                 itemPanel.repaint();
             }
         });
+//        datePicker.addActionListener(new ActionListener(){
+//            @Override
+//            public void actionPerformed(ActionEvent arg0){
+//
+//            }
+//        });
 
         viewGroup = new ButtonGroup();
         viewGroup.add(rdbtnDayView);
         viewGroup.add(rdbtnWeekView);
         viewGroup.add(rdbtnAgendaView);
+
 //        for (int i = 0; i < datePicker.getComponentCount(); i++) {
 //            if(datePicker.getComponent(i) instanceof JButton) {
 //                System.out.println(((JButton) datePicker.getComponent(i)).getActionListeners()[0].;;
