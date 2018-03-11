@@ -17,7 +17,7 @@ public class DayViewPanel extends JPanel {
     private JTable dayTable;
     private JScrollPane scrollDayTable;
 
-    public DayViewPanel(JDatePickerImpl datePicker, ArrayList<CalendarItem> calendarItems, String filterType) {//
+    public DayViewPanel(JDatePickerImpl datePicker, ArrayList<CalendarItem> calendarItems, String sFilterType) {//
         setLayout(null);
         JLabel lblToday = new JLabel("Today, " + datePicker.getJFormattedTextField().getText());
         lblToday.setFont(new Font("Rockwell", Font.PLAIN, 20));
@@ -38,7 +38,7 @@ public class DayViewPanel extends JPanel {
         scrollDayTable = new JScrollPane(dayTable);
         scrollDayTable.setBounds(new Rectangle(0, 61, 555, 394));
 
-        new DataFilter().itemsForTheDay(tableModel, calendarItems, datePicker);
+        new DataFilter().itemsForTheDay(tableModel, calendarItems, datePicker, sFilterType);
         add(scrollDayTable);
     }
 
