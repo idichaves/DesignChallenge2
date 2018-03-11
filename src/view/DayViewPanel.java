@@ -18,7 +18,6 @@ public class DayViewPanel extends JPanel {
 
     public DayViewPanel(JDatePickerImpl datePicker, ArrayList<CalendarItem> calendarItems) {//
         setLayout(null);
-//        calendarItems.get(i).get
         JLabel lblToday = new JLabel("Today");
         lblToday.setFont(new Font("Rockwell", Font.PLAIN, 20));
         lblToday.setBounds(30, 13, 204, 35);
@@ -43,7 +42,6 @@ public class DayViewPanel extends JPanel {
                 tableModel.setValueAt(hr + ":30PM", i * 2 + 1, 0);
                 inserItems(findItems(datePicker, calendarItems, i + 1, 30), tableModel, i *2 + 1, 1);
             }
-//            System.out.println(calendarItems.size());
         }
 
 
@@ -60,7 +58,6 @@ public class DayViewPanel extends JPanel {
     private void inserItems(ArrayList<CalendarItem> calendarItems, DefaultTableModel tableModel, int row, int col){
         String sItemToInsert = "";
         String sItemType = "";
-//        System.out.println(calendarItems.size());
         for (int i = 0; i < calendarItems.size(); i++) {
             if(calendarItems.get(i) instanceof ToDo)
                 sItemType = "Task: ";
@@ -73,13 +70,10 @@ public class DayViewPanel extends JPanel {
 
     private ArrayList<CalendarItem> findItems(JDatePickerImpl datePicker, ArrayList<CalendarItem> calendarItems, int currentHr, int currentMin) {
         ArrayList<CalendarItem> eventForDay = new ArrayList<>();
-//        int todoCounter;
         for (int i = 0; i < calendarItems.size(); i++) {
             CalendarItem itm = calendarItems.get(i);
             String datepickerDate = datePicker.getModel().getMonth()+1 + "/" + datePicker.getModel().getDay() + "/" + datePicker.getModel().getYear();
             String itmDate = itm.getMonth() + "/" + itm.getDay() + "/" + itm.getYear();
-//            System.out.println("itmDate: " + itmDate);
-//            System.out.println("datePickerDate: " +datepickerDate);
             if (isItemForToday(itm, currentHr, currentMin, itmDate, datepickerDate))
                 eventForDay.add(itm);
             System.out.println(eventForDay.size());
@@ -95,12 +89,7 @@ public class DayViewPanel extends JPanel {
         else if((currentHr == itm.getHrEnd() || currentHr == itm.getHrStart()) && currentMin == 0)
             bMinCheck = itm.getMinStart() <= 30 || itm.getMinEnd() <= 30;
         else bMinCheck = true;
-//        bMinCheck = true;
         return datePickerDate.equalsIgnoreCase(itmDate) &&
                 (currentHr >= itm.getHrStart() && currentHr <= itm.getHrEnd()) && bMinCheck;
     }
-//    30curr
-//    0curr
-//    45 end
-//    15 start
 }
