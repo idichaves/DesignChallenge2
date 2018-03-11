@@ -5,6 +5,7 @@ import model.ToDo;
 import org.jdatepicker.impl.JDatePickerImpl;
 
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 import java.util.ArrayList;
 
 public class DataFilter {
@@ -44,5 +45,24 @@ public class DataFilter {
         else bMinCheck = true;
         return datePickerDate.equalsIgnoreCase(itmDate) &&
                 (currentHr >= itm.getHrStart() && currentHr <= itm.getHrEnd()) && bMinCheck;
+    }
+
+    public void itemsForTheDay(DefaultTableModel tableModel, ArrayList<CalendarItem> calendarItems, JDatePickerImpl datePicker){
+        for (int i = 0; i < 24; i++) {
+            int hr = i + 1;
+            if (hr <= 12) {
+                tableModel.setValueAt(hr + ":00AM", i * 2, 0);
+                inserTtems(findItems(datePicker, calendarItems, i + 1, 0), tableModel, i *2, 1);
+                tableModel.setValueAt(hr + ":30AM", i * 2 + 1, 0);
+                inserTtems(findItems(datePicker, calendarItems, i + 1, 30), tableModel, i *2 + 1, 1);
+            } else {
+                hr -= 12;
+                tableModel.setValueAt(hr + ":00PM", i * 2, 0);
+                inserTtems(findItems(datePicker, calendarItems, i + 1, 0), tableModel, i *2, 1);
+                tableModel.setValueAt(hr + ":30PM", i * 2 + 1, 0);
+                inserTtems(findItems(datePicker, calendarItems, i + 1, 30), tableModel, i *2 + 1, 1);
+            }
+        }
+
     }
 }

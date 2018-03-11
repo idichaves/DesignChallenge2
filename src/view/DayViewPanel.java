@@ -29,23 +29,6 @@ public class DayViewPanel extends JPanel {
             }
         };
         tableModel.setColumnIdentifiers(new String[]{"Time", "Item"});
-        DataFilter f = new DataFilter();
-        for (int i = 0; i < 24; i++) {
-            int hr = i + 1;
-            if (hr <= 12) {
-                tableModel.setValueAt(hr + ":00AM", i * 2, 0);
-                f.inserTtems(f.findItems(datePicker, calendarItems, i + 1, 0), tableModel, i *2, 1);
-                tableModel.setValueAt(hr + ":30AM", i * 2 + 1, 0);
-                f.inserTtems(f.findItems(datePicker, calendarItems, i + 1, 30), tableModel, i *2 + 1, 1);
-            } else {
-                hr -= 12;
-                tableModel.setValueAt(hr + ":00PM", i * 2, 0);
-                f.inserTtems(f.findItems(datePicker, calendarItems, i + 1, 0), tableModel, i *2, 1);
-                tableModel.setValueAt(hr + ":30PM", i * 2 + 1, 0);
-                f.inserTtems(f.findItems(datePicker, calendarItems, i + 1, 30), tableModel, i *2 + 1, 1);
-            }
-        }
-
 
         dayTable = new JTable(tableModel);
         dayTable.setRowHeight(50);
@@ -54,6 +37,8 @@ public class DayViewPanel extends JPanel {
 
         scrollDayTable = new JScrollPane(dayTable);
         scrollDayTable.setBounds(new Rectangle(0, 61, 555, 394));
+
+        new DataFilter().itemsForTheDay(tableModel, calendarItems, datePicker);
         add(scrollDayTable);
     }
 
