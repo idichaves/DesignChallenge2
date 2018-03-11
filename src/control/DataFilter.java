@@ -5,14 +5,13 @@ import model.ToDo;
 import org.jdatepicker.impl.JDatePickerImpl;
 
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 import java.util.ArrayList;
 
 public class DataFilter {
 
     public void inserTtems(ArrayList<CalendarItem> calendarItems, DefaultTableModel tableModel, int row, int col){
         String sItemToInsert = "";
-        String sItemType = "";
+        String sItemType;
         for (int i = 0; i < calendarItems.size(); i++) {
             if(calendarItems.get(i) instanceof ToDo)
                 sItemType = "Task: ";
