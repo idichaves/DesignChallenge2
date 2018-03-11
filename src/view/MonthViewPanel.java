@@ -96,7 +96,7 @@ public class MonthViewPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent arg0) {
                 // TODO Auto-generated method stub
-                JPanel dayView = new DayViewPanel(datePicker);
+                JPanel dayView = new DayViewPanel(datePicker, model.getCalendarItems());
                 dayView.setBounds(0, 0, 555, 445);
 
                 itemPanel.removeAll();

@@ -24,7 +24,7 @@ public class CSVImport extends FileImport {
             String sColor = "none";
             while(!calendarItems.isEmpty())
                 calendarItems.remove(0);
-
+            System.out.println(calendarItems.size());
             FileReader r = new FileReader(fileName);
             BufferedReader bf = new BufferedReader(r);
             while (bf.ready()) {
