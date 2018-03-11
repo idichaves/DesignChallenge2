@@ -33,7 +33,7 @@ public class DayViewPanel extends JPanel {
             int hr = i + 1;
             if (hr <= 12) {
                 tableModel.setValueAt(hr + ":00AM", i * 2, 0);
-                inserItems(findItems(datePicker, calendarItems, hr - 1, 00), tableModel, i *2, 1);
+                inserItems(findItems(datePicker, calendarItems, hr - 1, 0), tableModel, i *2, 1);
                 tableModel.setValueAt(hr + ":30AM", i * 2 + 1, 0);
                 inserItems(findItems(datePicker, calendarItems, hr - 1, 30), tableModel, i *2 + 1, 1);
             } else {
@@ -43,6 +43,7 @@ public class DayViewPanel extends JPanel {
                 tableModel.setValueAt(hr + ":30PM", i * 2 + 1, 0);
                 inserItems(findItems(datePicker, calendarItems, i - 1, 30), tableModel, i *2 + 1, 1);
             }
+//            System.out.println(calendarItems.size());
         }
 
 
@@ -59,15 +60,15 @@ public class DayViewPanel extends JPanel {
     private void inserItems(ArrayList<CalendarItem> calendarItems, DefaultTableModel tableModel, int row, int col){
         String sItemToInsert = "";
         String sItemType = "";
+//        System.out.println(calendarItems.size());
         for (int i = 0; i < calendarItems.size(); i++) {
             if(calendarItems.get(i) instanceof ToDo)
                 sItemType = "Task: ";
             else sItemType = "Event: ";
-            System.out.println(calendarItems.get(i).getName());
+//            System.out.println(calendarItems.get(i).getName());
             sItemToInsert += sItemType + calendarItems.get(i).getName() + ", "; // there maybe 1 event and 1 todoitem for the day at the same time?
         }
         tableModel.setValueAt(sItemToInsert, row, col);
-
     }
 
     private ArrayList<CalendarItem> findItems(JDatePickerImpl datePicker, ArrayList<CalendarItem> calendarItems, int currentHr, int currentMin) {
@@ -75,20 +76,28 @@ public class DayViewPanel extends JPanel {
 //        int todoCounter;
         for (int i = 0; i < calendarItems.size(); i++) {
             CalendarItem itm = calendarItems.get(i);
+            System.out.println(calendarItems.size());
             String datepickerDate = datePicker.getModel().getMonth()+1 + "/" + datePicker.getModel().getDay() + "/" + datePicker.getModel().getYear();
             String itmDate = itm.getMonth() + "/" + itm.getDay() + "/" + itm.getYear();
 //            System.out.println("itmDate: " + itmDate);
 //            System.out.println("datePickerDate: " +datepickerDate);
-            if ( isItemForToday(itm, currentHr, currentMin, itmDate, datepickerDate))
+            if (isItemForToday(itm, currentHr, currentMin, itmDate, datepickerDate))
                 eventForDay.add(itm);
+
+//            System.out.println(eventForDay.size());
         }
         return eventForDay;
     }
 
     private boolean isItemForToday(CalendarItem itm, int currentHr, int currentMin, String itmDate, String datePickerDate){
+        boolean bMinCheck;
+
+        if(currentMin == 30)
+            bMinCheck = itm.getMinEnd() >= currentMin;
+        else
+            bMinCheck = itm.getMinEnd() <= 30;
         return datePickerDate.equalsIgnoreCase(itmDate) &&
-                (itm.getHrStart() == currentHr && currentHr == itm.getHrEnd()) &&
-                (itm.getMinStart() <= currentMin || itm.getMinEnd() <= currentMin);
+                (itm.getHrStart() == currentHr && currentHr == itm.getHrEnd()) && bMinCheck;
     }
 
 }

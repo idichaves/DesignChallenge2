@@ -19,6 +19,7 @@ public class CalendarDataModel {
 
     //gets content from file
     public ArrayList<CalendarItem> getCalendarItems() {
+        calendarItems.clear();
         for (int i = 0; i < fileImporters.size(); i++) {
             ArrayList<CalendarItem> temp =  fileImporters.get(i).getCalendarItems();
             for (int j = 0; j < temp.size(); j++)
