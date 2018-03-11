@@ -14,7 +14,7 @@ public class DataFilter {
         String sItemToInsert = "";
 
         for (int i = 0; i < calendarItems.size(); i++) {
-           CalendarItem calendarItem = calendarItems.get(i);
+            CalendarItem calendarItem = calendarItems.get(i);
             if(isAll(sFilter)) //All instance
                 sItemToInsert += getItemType(calendarItem) + calendarItem.getName();
             else if(isEvent(sFilter) && calendarItem instanceof Event) // all event only
@@ -84,7 +84,24 @@ public class DataFilter {
                 inserTtems(findItems(datePicker, calendarItems, i + 1, 30), tableModel,  sFilter,i *2 + 1, 1);
             }
         }
+    }
 
+    public void itemsForTheDay(DefaultTableModel tableModel){
+        for (int i = 0; i < 24; i++) {
+            int hr = i + 1;
+            if (hr <= 12) {
+                tableModel.setValueAt(hr + ":00AM", i * 2, 0);
+                //inserTtems(findItems(datePicker, calendarItems, i + 1, 0), tableModel, sFilter,i *2, 1);
+                tableModel.setValueAt(hr + ":30AM", i * 2 + 1, 0);
+               // inserTtems(findItems(datePicker, calendarItems, i + 1, 30), tableModel,  sFilter,i *2 + 1, 1);
+            } else {
+                hr -= 12;
+                tableModel.setValueAt(hr + ":00PM", i * 2, 0);
+                //inserTtems(findItems(datePicker, calendarItems, i + 1, 0), tableModel,  sFilter,i *2, 1);
+                tableModel.setValueAt(hr + ":30PM", i * 2 + 1, 0);
+               // inserTtems(findItems(datePicker, calendarItems, i + 1, 30), tableModel,  sFilter,i *2 + 1, 1);
+            }
+        }
     }
 
     public ArrayList<CalendarItem> findItemsWithDate(ArrayList<CalendarItem> calendarItems, String date){
