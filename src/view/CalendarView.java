@@ -22,15 +22,20 @@ public class CalendarView {
         mainFrame.setSize(910, 480);
         mainPane = mainFrame.getContentPane();
         try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            UIManager.setLookAndFeel("com.alee.laf.WebLookAndFeel");
         }
         catch (Exception ab) {
-            ab.printStackTrace();
+            try {
+                UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            }catch(Exception e){
+                e.printStackTrace();
+            }
         }
 
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainFrame.setResizable(false);
-
+        mainFrame.setLocationRelativeTo(null);
+        
         contentView = new JPanel();
         contentView.setBounds(338, 0, 555, 445);
 
