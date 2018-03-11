@@ -16,7 +16,6 @@ public class DataFilter {
             if(calendarItems.get(i) instanceof ToDo)
                 sItemType = "Task: ";
             else sItemType = "Event: ";
-//            System.out.println(calendarItems.get(i).getName());
             sItemToInsert += sItemType + calendarItems.get(i).getName() + ", "; // there maybe 1 event and 1 todoitem for the day at the same time?
         }
         tableModel.setValueAt(sItemToInsert, row, col);
@@ -26,12 +25,11 @@ public class DataFilter {
         ArrayList<CalendarItem> eventForDay = new ArrayList<>();
         for (int i = 0; i < calendarItems.size(); i++) {
             CalendarItem itm = calendarItems.get(i);
-            String datePickerDate = datePicker.getModel().getMonth()+1 + "/" + 
+            String datePickerDate = datePicker.getModel().getMonth()+1 + "/" +
                     datePicker.getModel().getDay() + "/" + datePicker.getModel().getYear();
             String itmDate = itm.getMonth() + "/" + itm.getDay() + "/" + itm.getYear();
             if (isItemForToday(itm, currentHr, currentMin, itmDate, datePickerDate))
                 eventForDay.add(itm);
-            System.out.println(eventForDay.size());
         }
         return eventForDay;
     }
@@ -64,5 +62,15 @@ public class DataFilter {
             }
         }
 
+    }
+
+    public ArrayList<CalendarItem> findItemsWithDate(ArrayList<CalendarItem> calendarItems, String date){
+        ArrayList<CalendarItem> items = new ArrayList<>();
+        for (int i = 0; i < calendarItems.size(); i++){
+            if (calendarItems.get(i).dateToString().equals(date))
+                items.add(calendarItems.get(i));
+        }
+
+        return items;
     }
 }

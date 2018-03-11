@@ -1,5 +1,7 @@
 package model;
 
+import control.DataFilter;
+
 import java.util.ArrayList;
 import java.time.LocalTime;
 
@@ -50,7 +52,7 @@ public class CalendarDataModel {
     }
 
     public boolean checkNoOverlap(String date, String timeStart, String timeEnd, String type){
-        ArrayList<CalendarItem> items = findItemsWithDate(date);
+        ArrayList<CalendarItem> items = new DataFilter().findItemsWithDate(calendarItems, date);
         boolean noOverlap = true;
         String[] startComps = timeStart.split(":");
         String[] endComps = timeEnd.split(":");
@@ -88,16 +90,5 @@ public class CalendarDataModel {
         return noOverlap;
     }
 
-    private ArrayList<CalendarItem> findItemsWithDate(String date){
-        ArrayList<CalendarItem> items = new ArrayList<>();
 
-        for (int i = 0; i < calendarItems.size(); i++){
-            if (calendarItems.get(i).dateToString().equals(date)){
-                System.out.println(calendarItems.get(i).dateToString());
-                items.add(calendarItems.get(i));
-            }
-        }
-
-        return items;
-    }
 }
