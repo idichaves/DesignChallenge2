@@ -26,9 +26,10 @@ public class DataFilter {
         ArrayList<CalendarItem> eventForDay = new ArrayList<>();
         for (int i = 0; i < calendarItems.size(); i++) {
             CalendarItem itm = calendarItems.get(i);
-            String datepickerDate = datePicker.getModel().getMonth()+1 + "/" + datePicker.getModel().getDay() + "/" + datePicker.getModel().getYear();
+            String datePickerDate = datePicker.getModel().getMonth()+1 + "/" + 
+                    datePicker.getModel().getDay() + "/" + datePicker.getModel().getYear();
             String itmDate = itm.getMonth() + "/" + itm.getDay() + "/" + itm.getYear();
-            if (isItemForToday(itm, currentHr, currentMin, itmDate, datepickerDate))
+            if (isItemForToday(itm, currentHr, currentMin, itmDate, datePickerDate))
                 eventForDay.add(itm);
             System.out.println(eventForDay.size());
         }
