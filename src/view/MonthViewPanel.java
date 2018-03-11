@@ -3,9 +3,9 @@ package view;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JButton;
+import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.awt.Font;
 import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
 
@@ -43,10 +43,11 @@ public class MonthViewPanel extends JPanel {
         lblViewType.setFont(new Font("Rockwell", Font.PLAIN, 15));
         lblViewType.setBounds(177, 194, 97, 25);
         add(lblViewType);
-
+        setBackground(Color.decode("#2591ba"));
         btnAddItem = new JButton("Add Item");
         btnAddItem.setFont(new Font("Rockwell", Font.PLAIN, 15));
         btnAddItem.setBounds(111, 399, 106, 33);
+        btnAddItem.setBackground(Color.decode("#2591ba"));
         add(btnAddItem);
         btnAddItem.addActionListener(new ActionListener() {
             @Override
@@ -66,7 +67,6 @@ public class MonthViewPanel extends JPanel {
         rdbtnEvent.setFont(new Font("Rockwell", Font.PLAIN, 15));
         rdbtnEvent.setBounds(20, 228, 84, 33);
         add(rdbtnEvent);
-
         rdbtnTask = new JRadioButton("Task");
         rdbtnTask.setFont(new Font("Rockwell", Font.PLAIN, 15));
         rdbtnTask.setBounds(20, 275, 84, 33);
@@ -87,6 +87,7 @@ public class MonthViewPanel extends JPanel {
 
             }
         });
+
 
         rdbtnDayView = new JRadioButton("Day View");
         rdbtnDayView.setFont(new Font("Rockwell", Font.PLAIN, 15));
@@ -138,6 +139,12 @@ public class MonthViewPanel extends JPanel {
                 itemPanel.repaint();
             }
         });
+        //For Windows Laf, IGNORE
+        rdbtnAgendaView.setBackground(Color.decode("#2591ba"));
+        rdbtnDayView.setBackground(Color.decode("#2591ba"));
+        rdbtnEvent.setBackground(Color.decode("#2591ba"));
+        rdbtnTask.setBackground(Color.decode("#2591ba"));
+        rdbtnWeekView.setBackground(Color.decode("#2591ba"));
 
         viewGroup = new ButtonGroup();
         viewGroup.add(rdbtnDayView);

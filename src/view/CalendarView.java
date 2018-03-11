@@ -23,6 +23,7 @@ public class CalendarView {
         mainPane = mainFrame.getContentPane();
         try {
             UIManager.setLookAndFeel("com.alee.laf.WebLookAndFeel");
+//            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         }
         catch (Exception ab) {
             try {
@@ -35,7 +36,7 @@ public class CalendarView {
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainFrame.setResizable(false);
         mainFrame.setLocationRelativeTo(null);
-        
+
         contentView = new JPanel();
         contentView.setBounds(338, 0, 555, 445);
 
