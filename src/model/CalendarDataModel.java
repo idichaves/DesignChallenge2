@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.time.LocalTime;
 
 public class CalendarDataModel {
 
@@ -42,7 +43,60 @@ public class CalendarDataModel {
 
     //for controller's use
     public void addCalendarItem(CalendarItem item){
+        calendarItems.add(item);
         for (int i = 0; i < fileImporters.size(); i++)
             fileImporters.get(i).writeData(item);
+    }
+
+    public boolean checkNoOverlap(String date, String timeStart, String timeEnd, String type){
+        ArrayList<CalendarItem> items = findItemsWithDate(date);
+        boolean noOverlap = true;
+        String[] startComps = timeStart.split(":");
+        String[] endComps = timeEnd.split(":");
+        if (type.equals("ToDo")) {
+            int nMinStart = Integer.parseInt(startComps[1]);
+            int nHrStart = Integer.parseInt(startComps[0]);
+
+            nMinStart += 30;
+            if (nMinStart > 59) {
+                nMinStart -= 60;
+                nHrStart += 1;
+            }
+
+            StringBuilder endBuilder = new StringBuilder();
+            endBuilder.append(Integer.toString(nHrStart));
+            endBuilder.append(":");
+            endBuilder.append(Integer.toString(nMinStart));
+            timeEnd = endBuilder.toString();
+        }
+
+        if (items.size() > 0){
+            for (int i = 0; i < items.size() && noOverlap; i++){
+                LocalTime localStartA = LocalTime.of(Integer.parseInt(startComps[0]), Integer.parseInt(startComps[1]));
+                LocalTime localEndA = LocalTime.of(Integer.parseInt(endComps[0]), Integer.parseInt(endComps[1]));
+
+                LocalTime localStartB = LocalTime.of(items.get(i).getHrStart(), items.get(i).getMinStart());
+                LocalTime localEndB = LocalTime.of(items.get(i).getHrEnd(), items.get(i).getMinEnd());
+
+                if (localStartA.isBefore(localEndB) && localEndA.isAfter(localStartB)){
+                    noOverlap = false;
+                }
+            }
+        }
+
+        return noOverlap;
+    }
+
+    private ArrayList<CalendarItem> findItemsWithDate(String date){
+        ArrayList<CalendarItem> items = new ArrayList<>();
+
+        for (int i = 0; i < calendarItems.size(); i++){
+            if (calendarItems.get(i).dateToString().equals(date)){
+                System.out.println(calendarItems.get(i).dateToString());
+                items.add(calendarItems.get(i));
+            }
+        }
+
+        return items;
     }
 }

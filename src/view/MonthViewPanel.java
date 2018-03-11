@@ -51,6 +51,8 @@ public class MonthViewPanel extends JPanel {
         btnAddItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent arg0) {
+                itemGroup.clearSelection();
+                viewGroup.clearSelection();
                 JPanel panel = new AddItemPanel(itemPanel, datePicker, model);
                 panel.setBounds(0, 0, 555, 445);
 
@@ -79,7 +81,7 @@ public class MonthViewPanel extends JPanel {
             }
         });
         itemGroup.add(rdbtnTask);
-        rdbtnEvent.addActionListener(new ActionListener(){
+        rdbtnTask.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent arg0){
 

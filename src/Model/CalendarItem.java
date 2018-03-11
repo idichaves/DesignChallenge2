@@ -76,7 +76,17 @@ public abstract class CalendarItem extends AbstractModel {
     }
 
     public String dateToString() {
-        return "" + month + "/" + day + "/" + year;
+        if (month >= 10) {
+            if (day >= 10)
+                return "" + month + "/" + day + "/" + year;
+            else return "" + month + "/" + "0" + day + "/" + year;
+        }
+        else {
+            if (day >= 10)
+                return "0" + month + "/" + day + "/" + year;
+            else
+                return "0" + month + "/" + "0" + day + "/" + year;
+        }
     }
 
     public String timeStartToString() {
