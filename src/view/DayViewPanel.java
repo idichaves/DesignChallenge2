@@ -1,5 +1,6 @@
 package view;
 
+import control.DataFilter;
 import model.CalendarItem;
 import model.ToDo;
 import org.jdatepicker.impl.JDatePickerImpl;
@@ -28,19 +29,20 @@ public class DayViewPanel extends JPanel {
             }
         };
         tableModel.setColumnIdentifiers(new String[]{"Time", "Item"});
+        DataFilter f = new DataFilter();
         for (int i = 0; i < 24; i++) {
             int hr = i + 1;
             if (hr <= 12) {
                 tableModel.setValueAt(hr + ":00AM", i * 2, 0);
-                inserItems(findItems(datePicker, calendarItems, i + 1, 0), tableModel, i *2, 1);
+                f.inserTtems(f.findItems(datePicker, calendarItems, i + 1, 0), tableModel, i *2, 1);
                 tableModel.setValueAt(hr + ":30AM", i * 2 + 1, 0);
-                inserItems(findItems(datePicker, calendarItems, i + 1, 30), tableModel, i *2 + 1, 1);
+                f.inserTtems(f.findItems(datePicker, calendarItems, i + 1, 30), tableModel, i *2 + 1, 1);
             } else {
                 hr -= 12;
                 tableModel.setValueAt(hr + ":00PM", i * 2, 0);
-                inserItems(findItems(datePicker, calendarItems, i + 1, 0), tableModel, i *2, 1);
+                f.inserTtems(f.findItems(datePicker, calendarItems, i + 1, 0), tableModel, i *2, 1);
                 tableModel.setValueAt(hr + ":30PM", i * 2 + 1, 0);
-                inserItems(findItems(datePicker, calendarItems, i + 1, 30), tableModel, i *2 + 1, 1);
+                f.inserTtems(f.findItems(datePicker, calendarItems, i + 1, 30), tableModel, i *2 + 1, 1);
             }
         }
 
@@ -55,41 +57,5 @@ public class DayViewPanel extends JPanel {
         add(scrollDayTable);
     }
 
-    private void inserItems(ArrayList<CalendarItem> calendarItems, DefaultTableModel tableModel, int row, int col){
-        String sItemToInsert = "";
-        String sItemType = "";
-        for (int i = 0; i < calendarItems.size(); i++) {
-            if(calendarItems.get(i) instanceof ToDo)
-                sItemType = "Task: ";
-            else sItemType = "Event: ";
-//            System.out.println(calendarItems.get(i).getName());
-            sItemToInsert += sItemType + calendarItems.get(i).getName() + ", "; // there maybe 1 event and 1 todoitem for the day at the same time?
-        }
-        tableModel.setValueAt(sItemToInsert, row, col);
-    }
 
-    private ArrayList<CalendarItem> findItems(JDatePickerImpl datePicker, ArrayList<CalendarItem> calendarItems, int currentHr, int currentMin) {
-        ArrayList<CalendarItem> eventForDay = new ArrayList<>();
-        for (int i = 0; i < calendarItems.size(); i++) {
-            CalendarItem itm = calendarItems.get(i);
-            String datepickerDate = datePicker.getModel().getMonth()+1 + "/" + datePicker.getModel().getDay() + "/" + datePicker.getModel().getYear();
-            String itmDate = itm.getMonth() + "/" + itm.getDay() + "/" + itm.getYear();
-            if (isItemForToday(itm, currentHr, currentMin, itmDate, datepickerDate))
-                eventForDay.add(itm);
-            System.out.println(eventForDay.size());
-        }
-        return eventForDay;
-    }
-
-    private boolean isItemForToday(CalendarItem itm, int currentHr, int currentMin, String itmDate, String datePickerDate){
-        boolean bMinCheck;
-
-        if((currentHr == itm.getHrEnd() || currentHr == itm.getHrStart()) && currentMin == 30)
-            bMinCheck = itm.getMinEnd() >= currentMin || itm.getMinStart() >= currentMin;
-        else if((currentHr == itm.getHrEnd() || currentHr == itm.getHrStart()) && currentMin == 0)
-            bMinCheck = itm.getMinStart() <= 30 || itm.getMinEnd() <= 30;
-        else bMinCheck = true;
-        return datePickerDate.equalsIgnoreCase(itmDate) &&
-                (currentHr >= itm.getHrStart() && currentHr <= itm.getHrEnd()) && bMinCheck;
-    }
 }
