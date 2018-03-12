@@ -20,7 +20,7 @@ public class TableCellRender{
                     setBackground(Color.decode("#1ad8bc"));
                 else if(getText().contains("Event: "))
                     setBackground(Color.decode("#d8791a"));
-                
+
                 else
                     setBackground(Color.decode("#a2ada8"));
                 setBorder(null);
