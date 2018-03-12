@@ -66,7 +66,7 @@ public class DataFilter {
         if((currentHr == itm.getHrEnd() || currentHr == itm.getHrStart()) && currentMin == 30)
             bMinCheck = itm.getMinEnd() >= currentMin || itm.getMinStart() >= currentMin;
         else if((currentHr == itm.getHrEnd() || currentHr == itm.getHrStart()) && currentMin == 0)
-            bMinCheck = itm.getMinStart() <= 30 || itm.getMinEnd() <= 30;
+            bMinCheck = itm.getMinStart() <= 30 || itm.getMinEnd() >= 30;
         else bMinCheck = true;
         return datePickerDate.equalsIgnoreCase(itmDate) &&
                 (currentHr >= itm.getHrStart() && currentHr <= itm.getHrEnd()) && bMinCheck;
