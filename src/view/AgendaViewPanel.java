@@ -30,7 +30,7 @@ public class AgendaViewPanel extends JPanel {
         agendaTextArea.setBounds(0, 61, 555, 394);
         add(agendaTextArea);
 
-        agendaViewControl = new AgendaViewControl(date, model, this);
+        agendaViewControl = new AgendaViewControl(date, model, this, filterType);
     }
 
     public void append(String s){
