@@ -37,8 +37,13 @@ public class CalendarDataModel {
     public void setTaskStatus(String name, boolean status){
         ArrayList<CalendarItem> items = getCalendarItems();
         for (int i = 0; i < items.size(); i++){
-            if (items.get(i).getName().equals(name) && items.get(i) instanceof ToDo)
+            if (items.get(i).getName().equals(name) && items.get(i) instanceof ToDo) {
+                CalendarItem item;
                 ((ToDo) items.get(i)).setAccomplished(status);
+                item = items.get(i);
+                fileImporters.get(i).deleteItem(items.get(i));
+                addCalendarItem(item);
+            }
         }
     }
 
