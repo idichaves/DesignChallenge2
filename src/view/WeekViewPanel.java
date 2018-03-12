@@ -9,6 +9,7 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Year;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -19,7 +20,7 @@ public class WeekViewPanel extends JPanel {
     private DefaultTableModel weekTableModel;
     private JTable weekTable;
     private JScrollPane scrollWeekTable;
-    
+
     //append additional parameters in front of filterType
     public WeekViewPanel(String sFilter, JDatePickerImpl datePicker, ArrayList<CalendarItem> calendarItems) {
         int nYear = datePicker.getModel().getYear();
@@ -47,27 +48,30 @@ public class WeekViewPanel extends JPanel {
         weekTable.getTableHeader().setResizingAllowed(false);
         weekTable.getColumn("Time").setPreferredWidth(70);
 
+        /******************FOR EVENTS****************/
+        Date date = null;
+        try {
+            String sDate2 = String.format("%d-%d-%d", nYear, nMonth, nDay);
+            date = new SimpleDateFormat("yyyy-M-d").parse(sDate2);
+        }catch (ParseException e){
+            e.printStackTrace();
+        }
 
+        String dayOfWeek = new SimpleDateFormat("EEEE", Locale.ENGLISH).format(date);
+        int[] arrDate = getMonday(dayChecker(dayOfWeek), nYear, nMonth, nDay);
         new DataFilter().itemsForTheDay(weekTableModel);
-        for (int i = 1; i < weekTableModel.getColumnCount(); i++) {
-            Date date = null;
-            try {
-                String sDate2 = String.format("%d-%d-%d", nYear, nMonth, nDay);
-                date = new SimpleDateFormat("yyyy-M-d").parse(sDate2);
-            }catch (ParseException e){
-                e.printStackTrace();
-            }
-            String dayOfWeek = new SimpleDateFormat("EEEE", Locale.ENGLISH).format(date);
-            insertAll(getMonday(dayChecker(dayOfWeek), nYear, nMonth, nDay)); //Year, Month, Day
+        for (int i = 1; i < weekTableModel.getColumnCount(); i++)
+            arrDate = insertAll(arrDate, calendarItems, weekTableModel, sFilter, i); //Year, Month, Day
 //            GregorianCalendar gCalendar = new GregorianCalendar(nYear, nMonth -1, nDay);//nMonth - 1 current month for gregCal const
 //            new DataFilter().itemsForTheDay(weekTableModel,calendarItems, sDate, sFilter, i);
-        }
+
+        /**************End of FOR EVENTS*************/
 
         scrollWeekTable = new JScrollPane(weekTable);
         scrollWeekTable.setBounds(new Rectangle(0, 61, 555, 394));
         add(scrollWeekTable);
     }
-
+    //All Methods BELOW will be moved to DataFilter class later
     private int dayChecker(String sName){
         if(sName.equalsIgnoreCase("Monday"))
             return 0;
@@ -97,8 +101,17 @@ public class WeekViewPanel extends JPanel {
         return date;
     }
 
-    private void insertAll(int[] arrDate){//arrdate = nYear, nMonth, nDay
-
+    private int[] insertAll(int[] arrDate, ArrayList<CalendarItem> calendarItems, DefaultTableModel weekTableModel,String sFilter, int nCol){//arrdate = nYear, nMonth, nDay
+        String sDate = arrDate[1] + "/" +arrDate[2] + "/" + arrDate[0];
+        GregorianCalendar gCalendar = new GregorianCalendar(arrDate[0], arrDate[1] - 1, arrDate[2]);
+        new DataFilter().itemsForTheDay(weekTableModel, calendarItems, sDate, sFilter, nCol);
+        int maxDate = gCalendar.getActualMaximum(gCalendar.DAY_OF_MONTH);
+        if(arrDate[2] + 1 > maxDate)
+            if(arrDate[1] > 12)
+                arrDate[0]++;
+            else arrDate[1]++;
+        else arrDate[2]++;
+        return arrDate;
     }
 
     // for controller to add columns/dates to the week table
