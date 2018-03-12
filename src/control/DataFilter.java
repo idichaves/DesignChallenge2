@@ -63,13 +63,22 @@ public class DataFilter {
 
     private boolean isItemForToday(CalendarItem itm, int currentHr, int currentMin, String itmDate, String datePickerDate){
         boolean bMinCheck;
-        if((currentHr == itm.getHrEnd() || currentHr == itm.getHrStart()) && currentMin == 30)
-            bMinCheck = itm.getMinEnd() >= currentMin || itm.getMinStart() >= currentMin;
-        else if((currentHr == itm.getHrEnd() || currentHr == itm.getHrStart()) && currentMin == 0)
-            bMinCheck = itm.getMinStart() <= 30 || itm.getMinEnd() >= 30;
-        else bMinCheck = true;
+        String zero;
+        String startTime;
+        String endTime;
+        String currentTime;
+        if(itm.getMinStart() <10)
+            startTime = String.valueOf(itm.getHrStart()) + "0" + String.valueOf(itm.getMinStart());
+        else startTime = String.valueOf(itm.getHrStart()) + String.valueOf(itm.getMinStart());
+        if(itm.getMinEnd() <10)
+            endTime = String.valueOf(itm.getHrEnd()) + "0" + String.valueOf(itm.getMinEnd());
+        else endTime = String.valueOf(itm.getHrEnd()) + String.valueOf(itm.getMinEnd());
+        if(currentMin == 0)
+            currentTime = currentHr + "0" + currentMin;
+        else currentTime = String.valueOf(currentHr) + String.valueOf(currentMin);
         return datePickerDate.equalsIgnoreCase(itmDate) &&
-                (currentHr >= itm.getHrStart() && currentHr <= itm.getHrEnd()) && bMinCheck;
+                Integer.parseInt(startTime) <= Integer.parseInt(currentTime) &&
+                Integer.parseInt(endTime) >= Integer.parseInt(currentTime);
     }
 
     public void itemsForTheDay(DefaultTableModel tableModel, ArrayList<CalendarItem> calendarItems, String sDate, String sFilter, int nCol){
