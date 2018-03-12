@@ -40,9 +40,17 @@ public class WeekViewPanel extends JPanel {
         };
         weekTableModel.setColumnIdentifiers(new String[] {"Time", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"});
         weekTable = new JTable(weekTableModel);
+        weekTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         weekTable.setRowHeight(50);
         weekTable.getTableHeader().setResizingAllowed(false);
         weekTable.getColumn("Time").setPreferredWidth(70);
+        weekTable.getColumn("Mon").setPreferredWidth(200);
+        weekTable.getColumn("Tue").setPreferredWidth(200);
+        weekTable.getColumn("Wed").setPreferredWidth(200);
+        weekTable.getColumn("Thu").setPreferredWidth(200);
+        weekTable.getColumn("Fri").setPreferredWidth(200);
+        weekTable.getColumn("Sat").setPreferredWidth(200);
+        weekTable.getColumn("Sun").setPreferredWidth(200);
 
         /******************FOR EVENTS****************/
         Date date = null;
@@ -65,8 +73,8 @@ public class WeekViewPanel extends JPanel {
 
         /**************End of FOR EVENTS*************/
 
-        scrollWeekTable = new JScrollPane(weekTable);
-        scrollWeekTable.setBounds(new Rectangle(0, 61, 555, 394));
+        scrollWeekTable = new JScrollPane(weekTable, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        scrollWeekTable.setBounds(0, 50, 555, 394);
         add(scrollWeekTable);
     }
 
