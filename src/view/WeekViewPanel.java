@@ -1,6 +1,7 @@
 package view;
 
 import control.DataFilter;
+import org.jdatepicker.impl.JDatePickerImpl;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -13,7 +14,7 @@ public class WeekViewPanel extends JPanel {
     private JScrollPane scrollWeekTable;
 
     //append additional parameters in front of filterType
-    public WeekViewPanel(String filterType) {
+    public WeekViewPanel(String filterType, JDatePickerImpl datePicker) {
         setLayout(null);
 
         JLabel lblThisWeek = new JLabel("Week View");
@@ -33,7 +34,10 @@ public class WeekViewPanel extends JPanel {
         weekTable.setRowHeight(50);
         weekTable.getTableHeader().setResizingAllowed(false);
         weekTable.getColumn("Time").setPreferredWidth(70);
+
+
         new DataFilter().itemsForTheDay(weekTableModel);
+
         scrollWeekTable = new JScrollPane(weekTable);
         scrollWeekTable.setBounds(new Rectangle(0, 61, 555, 394));
         add(scrollWeekTable);

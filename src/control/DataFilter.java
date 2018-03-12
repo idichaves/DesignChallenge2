@@ -72,15 +72,10 @@ public class DataFilter {
         for (int i = 0; i < 24; i++) {
             int hr = i + 1;
             if (hr <= 12) {
-                tableModel.setValueAt(hr + ":00AM", i * 2, 0);
                 inserTtems(findItems(datePicker, calendarItems, i + 1, 0), tableModel, sFilter,i *2, 1);
-                tableModel.setValueAt(hr + ":30AM", i * 2 + 1, 0);
                 inserTtems(findItems(datePicker, calendarItems, i + 1, 30), tableModel,  sFilter,i *2 + 1, 1);
             } else {
-                hr -= 12;
-                tableModel.setValueAt(hr + ":00PM", i * 2, 0);
                 inserTtems(findItems(datePicker, calendarItems, i + 1, 0), tableModel,  sFilter,i *2, 1);
-                tableModel.setValueAt(hr + ":30PM", i * 2 + 1, 0);
                 inserTtems(findItems(datePicker, calendarItems, i + 1, 30), tableModel,  sFilter,i *2 + 1, 1);
             }
         }

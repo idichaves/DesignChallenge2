@@ -94,7 +94,7 @@ public class MonthViewPanel extends JPanel {
                     itemPanel.repaint();
                 }
                 else if (rdbtnWeekView.isSelected()) {
-                    eventView = new WeekViewPanel(rdbtnEvent.getText());
+                    eventView = new WeekViewPanel(rdbtnEvent.getText(), datePicker);
 
                     eventView.setBounds(0, 0, 555,445);
                     itemPanel.removeAll();
@@ -125,7 +125,7 @@ public class MonthViewPanel extends JPanel {
                     itemPanel.repaint();
                 }
                 else if (rdbtnWeekView.isSelected()) {
-                    eventView = new WeekViewPanel(rdbtnTask.getText());
+                    eventView = new WeekViewPanel(rdbtnTask.getText(), datePicker);
 
                     eventView.setBounds(0, 0, 555,445);
                     itemPanel.removeAll();
@@ -156,7 +156,7 @@ public class MonthViewPanel extends JPanel {
                     itemPanel.repaint();
                 }
                 else if (rdbtnWeekView.isSelected()) {
-                    eventView = new WeekViewPanel(rdbtnAll.getText());
+                    eventView = new WeekViewPanel(rdbtnAll.getText(), datePicker);
 
                     eventView.setBounds(0, 0, 555,445);
                     itemPanel.removeAll();
@@ -208,11 +208,11 @@ public class MonthViewPanel extends JPanel {
                 // TODO Auto-generated method stub
                 JPanel weekView = new JPanel();
                 if (rdbtnEvent.isSelected())
-                    weekView = new WeekViewPanel(rdbtnEvent.getText());
+                    weekView = new WeekViewPanel(rdbtnEvent.getText(), datePicker);
                 else if (rdbtnTask.isSelected())
-                    weekView = new WeekViewPanel(rdbtnTask.getText());
+                    weekView = new WeekViewPanel(rdbtnTask.getText(),datePicker);
                 else
-                    weekView = new WeekViewPanel(rdbtnAll.getText());
+                    weekView = new WeekViewPanel(rdbtnAll.getText(), datePicker);
 
                 weekView.setBounds(0, 0, 555, 445);
                 itemPanel.removeAll();
@@ -262,11 +262,11 @@ public class MonthViewPanel extends JPanel {
                 }
                 else if (rdbtnWeekView.isSelected()){
                     if (rdbtnEvent.isSelected())
-                        contentView = new WeekViewPanel(rdbtnEvent.getText());
+                        contentView = new WeekViewPanel(rdbtnEvent.getText(), datePicker);
                     else if (rdbtnTask.isSelected())
-                        contentView = new WeekViewPanel(rdbtnTask.getText());
+                        contentView = new WeekViewPanel(rdbtnTask.getText(), datePicker);
                     else
-                        contentView = new WeekViewPanel(rdbtnAll.getText());
+                        contentView = new WeekViewPanel(rdbtnAll.getText(), datePicker);
 
                     contentView.setBounds(0, 0, 555, 445);
                     itemPanel.removeAll();
