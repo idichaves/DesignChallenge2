@@ -20,12 +20,17 @@ public class WeekViewPanel extends JPanel {
     private JTable weekTable;
     private JScrollPane scrollWeekTable;
 
+<<<<<<< HEAD
     //append additional parameters in front of filterType
     public WeekViewPanel(String sFilter, JDatePickerImpl datePicker, ArrayList<CalendarItem> calendarItems) {
         int nYear = datePicker.getModel().getYear();
         int nMonth = datePicker.getModel().getMonth() + 1;
         int nDay = datePicker.getModel().getDay();
         String sDate = nMonth + 1 + "/" + nDay + "/" + nYear;
+=======
+    public WeekViewPanel(String filterType, JDatePickerImpl datePicker) {
+        setLayout(null);
+>>>>>>> 72b392dda71a11a47ebd82a76a0fe7b39bf0e9c0
 
         setLayout(null);
         JLabel lblThisWeek = new JLabel("Week View");
