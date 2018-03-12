@@ -31,12 +31,12 @@ public class AgendaViewPanel extends JPanel {
 
     public void addTask(String time, String name, boolean accomplished){
         JPanel panel = new JPanel(null);
-        panel.setBounds(30, y, 500, 30);
+        panel.setBounds(0, y, 590, 30);
 
         if (!accomplished) {
             JCheckBox checkBox = new JCheckBox(time + " " + name);
             checkBox.setFont(new Font("Rockwell", Font.PLAIN, 20));
-            checkBox.setBounds(0, 0, 500, 30);
+            checkBox.setBounds(0, 0, 400, 30);
             add(panel);
             panel.add(checkBox);
             checkBox.addActionListener(new ActionListener() {
@@ -56,18 +56,30 @@ public class AgendaViewPanel extends JPanel {
         else{
             JCheckBox checkBox = new JCheckBox("<html><strike>" + time + " "+ name + "</strike></html>");
             checkBox.setFont(new Font("Rockwell", Font.PLAIN, 20));
-            checkBox.setBounds(0, 0, 500, 30);
+            checkBox.setBounds(0, 0, 400, 30);
             checkBox.setSelected(true);
             add(panel);
             panel.add(checkBox);
         }
+        JButton btnRemove = new JButton("Remove");
+        btnRemove.setFont(new Font("Rockwell", Font.PLAIN, 20));
+        btnRemove.setBounds(400, 0, 120, 30);
+        panel.add(btnRemove);
+        btnRemove.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent arg0){
+                model.removeTask(name);
+                remove(panel);
+                repaint();
+            }
+        });
         y+=35;
     }
 
     public void addEvent(String time, String name){
         JLabel label = new JLabel(time + " " + name);
         label.setFont(new Font("Rockwell", Font.PLAIN, 20));
-        label.setBounds(30, y, 500, 30);
+        label.setBounds(0, y, 500, 30);
         add(label);
         y+=35;
     }

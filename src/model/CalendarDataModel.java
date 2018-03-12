@@ -41,8 +41,17 @@ public class CalendarDataModel {
                 CalendarItem item;
                 ((ToDo) items.get(i)).setAccomplished(status);
                 item = items.get(i);
-                fileImporters.get(0).deleteItem(items.get(i));
+                fileImporters.get(fileImporters.size()-1).deleteItem(items.get(i));
                 addCalendarItem(item);
+            }
+        }
+    }
+
+    public void removeTask(String name){
+        ArrayList<CalendarItem> items = getCalendarItems();
+        for (int i = 0; i < items.size(); i++){
+            if (items.get(i).getName().equals(name) && items.get(i) instanceof ToDo) {
+                fileImporters.get(fileImporters.size()-1).deleteItem(items.get(i));
             }
         }
     }
