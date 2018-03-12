@@ -62,11 +62,7 @@ public class DataFilter {
     }
 
     private boolean isItemForToday(CalendarItem itm, int currentHr, int currentMin, String itmDate, String datePickerDate){
-        boolean bMinCheck;
-        String zero;
-        String startTime;
-        String endTime;
-        String currentTime;
+        String startTime, endTime, currentTime;
         if(itm.getMinStart() <10)
             startTime = String.valueOf(itm.getHrStart()) + "0" + String.valueOf(itm.getMinStart());
         else startTime = String.valueOf(itm.getHrStart()) + String.valueOf(itm.getMinStart());
