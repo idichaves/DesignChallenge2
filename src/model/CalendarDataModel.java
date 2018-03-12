@@ -2,6 +2,8 @@ package model;
 
 import control.DataFilter;
 
+import java.time.Duration;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.time.LocalTime;
 
@@ -79,8 +81,9 @@ public class CalendarDataModel {
 
                 LocalTime localStartB = LocalTime.of(items.get(i).getHrStart(), items.get(i).getMinStart());
                 LocalTime localEndB = LocalTime.of(items.get(i).getHrEnd(), items.get(i).getMinEnd());
+                //LocalTime difference = localStartB.minusMinutes(localEndA.getLong());
 
-                if (/*localStartA.isBefore(localEndB) && localEndA.isAfter(localStartB) && */!localStartA.isAfter(localEndB) && !localStartB.isAfter(localEndA)){
+                if (!localStartA.isAfter(localEndB) && !localStartB.isAfter(localEndA) ){
                     noOverlap = false;
                 }
             }
