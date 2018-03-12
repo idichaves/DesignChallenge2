@@ -62,19 +62,34 @@ public class DataFilter {
     }
 
     private boolean isItemForToday(CalendarItem itm, int currentHr, int currentMin, String itmDate, String datePickerDate){
-        String startTime, endTime, currentTime;
+        String startTime, endTime, currentTime, tempEnd, tempStart;
+        int currentMinStart = currentMin;
+        int currentMinEnd = currentMin;
         if(itm.getMinStart() <10)
             startTime = String.valueOf(itm.getHrStart()) + "0" + String.valueOf(itm.getMinStart());
-        else startTime = String.valueOf(itm.getHrStart()) + String.valueOf(itm.getMinStart());
+        else {
+            if (currentMinStart < itm.getMinStart() && currentHr == itm.getHrStart())
+                currentMinStart = 59;
+            startTime = String.valueOf(itm.getHrStart()) + String.valueOf(itm.getMinStart());
+        }
         if(itm.getMinEnd() <10)
             endTime = String.valueOf(itm.getHrEnd()) + "0" + String.valueOf(itm.getMinEnd());
-        else endTime = String.valueOf(itm.getHrEnd()) + String.valueOf(itm.getMinEnd());
+        else {
+            if(currentMinEnd < itm.getMinEnd() && currentHr == itm.getHrEnd())
+                currentMinEnd = 0;
+            endTime = String.valueOf(itm.getHrEnd()) + String.valueOf(itm.getMinEnd());
+        }
         if(currentMin == 0)
-            currentTime = currentHr + "0" + currentMin;
-        else currentTime = String.valueOf(currentHr) + String.valueOf(currentMin);
+            tempEnd = tempStart = currentHr + "0" + currentMin;
+        else {
+            tempEnd = currentHr + String.valueOf(currentMinEnd);
+            tempStart = currentHr + String.valueOf(currentMinStart);
+        }
+
+        //else currentTime = String.valueOf(currentHr) + String.valueOf(currentMin);
         return datePickerDate.equalsIgnoreCase(itmDate) &&
-                Integer.parseInt(startTime) <= Integer.parseInt(currentTime) &&
-                Integer.parseInt(endTime) >= Integer.parseInt(currentTime);
+                Integer.parseInt(startTime) <= Integer.parseInt(tempStart) &&
+                Integer.parseInt(endTime) >= Integer.parseInt(tempEnd);
     }
 
     public void itemsForTheDay(DefaultTableModel tableModel, ArrayList<CalendarItem> calendarItems, String sDate, String sFilter, int nCol){
@@ -138,7 +153,9 @@ public class DataFilter {
                 }
             else nDay--;
         }
+
         int[] date = new int[]{nYear, nMonth, nDay};
+        arrDates.add(date[2]);
         return date;
     }
 
@@ -159,6 +176,7 @@ public class DataFilter {
                 arrDate[2] = 1;
             }
         else arrDate[2]++;
+        arrDates.add(arrDate[2]);
         return arrDate;
     }
 

@@ -107,6 +107,12 @@ public class CSVImport extends FileImport {
         return super.getCalendarItems();
     }
 
+    @Override
+    public void deleteItem(CalendarItem calendarItem){
+        calendarItems.remove(calendarItem);
+        writeData(null);
+    }
+
     /*** Modify if this method will be used ***/
 //	public Color findColor(int year, int month, int day, String[] sEvent){
 //		Color color = null;

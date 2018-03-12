@@ -41,6 +41,7 @@ public class DayViewPanel extends JPanel {
 
         new DataFilter().itemsForTheDay(tableModel, calendarItems, date, sFilterType, 1);
         new DataFilter().itemsForTheDay(tableModel);
+        new TableCellRender().TableRenderer(dayTable);
         add(scrollDayTable);
     }
 

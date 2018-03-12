@@ -22,7 +22,7 @@ public abstract class FileImport {
     public ArrayList<CalendarItem> getCalendarItems() {
         return calendarItems;
     }
-
+    public abstract void deleteItem(CalendarItem calendarItem);
 
     /*** Modify if method will be used ***/
 //    public ArrayList<ArrayList<String>> findEvent(int year, int month, int day) {
