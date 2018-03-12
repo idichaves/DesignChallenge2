@@ -39,7 +39,7 @@ public class DayViewPanel extends JPanel {
         scrollDayTable = new JScrollPane(dayTable);
         scrollDayTable.setBounds(new Rectangle(0, 61, 555, 394));
 
-        new DataFilter().itemsForTheDay(tableModel, calendarItems, datePicker, sFilterType);
+        new DataFilter().itemsForTheDay(tableModel, calendarItems, date, sFilterType, 1);
         new DataFilter().itemsForTheDay(tableModel);
         add(scrollDayTable);
     }

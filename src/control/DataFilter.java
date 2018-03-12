@@ -44,12 +44,10 @@ public class DataFilter {
         return sFilter.equalsIgnoreCase("task");
     }
 
-    public ArrayList<CalendarItem> findItems(JDatePickerImpl datePicker, ArrayList<CalendarItem> calendarItems, int currentHr, int currentMin) {
+    public ArrayList<CalendarItem> findItems(String datePickerDate, ArrayList<CalendarItem> calendarItems, int currentHr, int currentMin) {
         ArrayList<CalendarItem> eventForDay = new ArrayList<>();
         for (int i = 0; i < calendarItems.size(); i++) {
             CalendarItem itm = calendarItems.get(i);
-            String datePickerDate = datePicker.getModel().getMonth()+1 + "/" +
-                    datePicker.getModel().getDay() + "/" + datePicker.getModel().getYear();
             String itmDate = itm.getMonth() + "/" + itm.getDay() + "/" + itm.getYear();
             if (isItemForToday(itm, currentHr, currentMin, itmDate, datePickerDate))
                 eventForDay.add(itm);
@@ -68,15 +66,15 @@ public class DataFilter {
                 (currentHr >= itm.getHrStart() && currentHr <= itm.getHrEnd()) && bMinCheck;
     }
 
-    public void itemsForTheDay(DefaultTableModel tableModel, ArrayList<CalendarItem> calendarItems, JDatePickerImpl datePicker, String sFilter){
+    public void itemsForTheDay(DefaultTableModel tableModel, ArrayList<CalendarItem> calendarItems, String sDate, String sFilter, int nCol){
         for (int i = 0; i < 24; i++) {
             int hr = i + 1;
             if (hr <= 12) {
-                inserTtems(findItems(datePicker, calendarItems, i + 1, 0), tableModel, sFilter,i *2, 1);
-                inserTtems(findItems(datePicker, calendarItems, i + 1, 30), tableModel,  sFilter,i *2 + 1, 1);
+                inserTtems(findItems(sDate, calendarItems, i + 1, 0), tableModel, sFilter,i *2, nCol);
+                inserTtems(findItems(sDate, calendarItems, i + 1, 30), tableModel,  sFilter,i *2 + 1, nCol);
             } else {
-                inserTtems(findItems(datePicker, calendarItems, i + 1, 0), tableModel,  sFilter,i *2, 1);
-                inserTtems(findItems(datePicker, calendarItems, i + 1, 30), tableModel,  sFilter,i *2 + 1, 1);
+                inserTtems(findItems(sDate, calendarItems, i + 1, 0), tableModel,  sFilter,i *2, nCol);
+                inserTtems(findItems(sDate, calendarItems, i + 1, 30), tableModel,  sFilter,i *2 + 1, nCol);
             }
         }
     }

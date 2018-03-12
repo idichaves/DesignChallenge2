@@ -6,6 +6,7 @@ import javax.swing.JButton;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
 
@@ -94,7 +95,7 @@ public class MonthViewPanel extends JPanel {
                     itemPanel.repaint();
                 }
                 else if (rdbtnWeekView.isSelected()) {
-                    eventView = new WeekViewPanel(rdbtnEvent.getText(), datePicker);
+                    eventView = new WeekViewPanel(rdbtnEvent.getText(), datePicker, model.getCalendarItems() );
 
                     eventView.setBounds(0, 0, 555,445);
                     itemPanel.removeAll();
@@ -116,6 +117,7 @@ public class MonthViewPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent arg0){
                 JPanel eventView = new JPanel();
+
                 if(rdbtnDayView.isSelected()) {
                     eventView = new DayViewPanel(datePicker, model.getCalendarItems(), rdbtnTask.getText());
 
@@ -125,7 +127,7 @@ public class MonthViewPanel extends JPanel {
                     itemPanel.repaint();
                 }
                 else if (rdbtnWeekView.isSelected()) {
-                    eventView = new WeekViewPanel(rdbtnTask.getText(), datePicker);
+                    eventView = new WeekViewPanel(rdbtnTask.getText(), datePicker, model.getCalendarItems());
 
                     eventView.setBounds(0, 0, 555,445);
                     itemPanel.removeAll();
@@ -156,7 +158,7 @@ public class MonthViewPanel extends JPanel {
                     itemPanel.repaint();
                 }
                 else if (rdbtnWeekView.isSelected()) {
-                    eventView = new WeekViewPanel(rdbtnAll.getText(), datePicker);
+                    eventView = new WeekViewPanel(rdbtnAll.getText(), datePicker, model.getCalendarItems());
 
                     eventView.setBounds(0, 0, 555,445);
                     itemPanel.removeAll();
@@ -208,11 +210,11 @@ public class MonthViewPanel extends JPanel {
                 // TODO Auto-generated method stub
                 JPanel weekView = new JPanel();
                 if (rdbtnEvent.isSelected())
-                    weekView = new WeekViewPanel(rdbtnEvent.getText(), datePicker);
+                    weekView = new WeekViewPanel(rdbtnEvent.getText(), datePicker, model.getCalendarItems());
                 else if (rdbtnTask.isSelected())
-                    weekView = new WeekViewPanel(rdbtnTask.getText(),datePicker);
+                    weekView = new WeekViewPanel(rdbtnTask.getText(),datePicker, model.getCalendarItems());
                 else
-                    weekView = new WeekViewPanel(rdbtnAll.getText(), datePicker);
+                    weekView = new WeekViewPanel(rdbtnAll.getText(), datePicker, model.getCalendarItems());
 
                 weekView.setBounds(0, 0, 555, 445);
                 itemPanel.removeAll();
@@ -262,11 +264,11 @@ public class MonthViewPanel extends JPanel {
                 }
                 else if (rdbtnWeekView.isSelected()){
                     if (rdbtnEvent.isSelected())
-                        contentView = new WeekViewPanel(rdbtnEvent.getText(), datePicker);
+                        contentView = new WeekViewPanel(rdbtnEvent.getText(), datePicker, model.getCalendarItems());
                     else if (rdbtnTask.isSelected())
-                        contentView = new WeekViewPanel(rdbtnTask.getText(), datePicker);
+                        contentView = new WeekViewPanel(rdbtnTask.getText(), datePicker, model.getCalendarItems());
                     else
-                        contentView = new WeekViewPanel(rdbtnAll.getText(), datePicker);
+                        contentView = new WeekViewPanel(rdbtnAll.getText(), datePicker, model.getCalendarItems());
 
                     contentView.setBounds(0, 0, 555, 445);
                     itemPanel.removeAll();
