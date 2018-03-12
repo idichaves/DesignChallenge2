@@ -7,6 +7,7 @@ import org.jdatepicker.impl.JDatePickerImpl;
 
 import javax.swing.table.DefaultTableModel;
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
 
 public class DataFilter {
 
@@ -44,7 +45,7 @@ public class DataFilter {
         return sFilter.equalsIgnoreCase("task");
     }
 
-    public ArrayList<CalendarItem> findItems(String datePickerDate, ArrayList<CalendarItem> calendarItems, int currentHr, int currentMin) {
+    private ArrayList<CalendarItem> findItems(String datePickerDate, ArrayList<CalendarItem> calendarItems, int currentHr, int currentMin) {
         ArrayList<CalendarItem> eventForDay = new ArrayList<>();
         for (int i = 0; i < calendarItems.size(); i++) {
             CalendarItem itm = calendarItems.get(i);
@@ -55,7 +56,7 @@ public class DataFilter {
         return eventForDay;
     }
 
-    public boolean isItemForToday(CalendarItem itm, int currentHr, int currentMin, String itmDate, String datePickerDate){
+    private boolean isItemForToday(CalendarItem itm, int currentHr, int currentMin, String itmDate, String datePickerDate){
         boolean bMinCheck;
         if((currentHr == itm.getHrEnd() || currentHr == itm.getHrStart()) && currentMin == 30)
             bMinCheck = itm.getMinEnd() >= currentMin || itm.getMinStart() >= currentMin;
@@ -95,6 +96,47 @@ public class DataFilter {
                // inserTtems(findItems(datePicker, calendarItems, i + 1, 30), tableModel,  sFilter,i *2 + 1, 1);
             }
         }
+    }
+    public int dayChecker(String sName){
+        if(sName.equalsIgnoreCase("Monday"))
+            return 0;
+        else if(sName.equalsIgnoreCase("Tuesday"))
+            return 1;
+        else if(sName.equalsIgnoreCase("Wednesday"))
+            return 2;
+        else if(sName.equalsIgnoreCase("Thursday"))
+            return 3;
+        else if(sName.equalsIgnoreCase("Friday"))
+            return 4;
+        else if(sName.equalsIgnoreCase("Saturday"))
+            return 5;
+        else return 6;
+    }
+
+    public int[] getMonday(int nSubtrahend, int nYear, int nMonth, int nDay){
+        for (int i = 0; i < nSubtrahend ; nSubtrahend--) {
+            if(nDay - 1 == 0)
+                if(nMonth - 1 == 0)
+                    nYear--;
+                else
+                    nMonth--;
+            else nDay--;
+        }
+        int[] date = new int[]{nYear, nMonth, nDay};
+        return date;
+    }
+
+    public int[] insertAll(int[] arrDate, ArrayList<CalendarItem> calendarItems, DefaultTableModel weekTableModel,String sFilter, int nCol){//arrdate = nYear, nMonth, nDay
+        String sDate = arrDate[1] + "/" +arrDate[2] + "/" + arrDate[0];
+        GregorianCalendar gCalendar = new GregorianCalendar(arrDate[0], arrDate[1] - 1, arrDate[2]);
+        itemsForTheDay(weekTableModel, calendarItems, sDate, sFilter, nCol);
+        int maxDate = gCalendar.getActualMaximum(gCalendar.DAY_OF_MONTH);
+        if(arrDate[2] + 1 > maxDate)
+            if(arrDate[1] > 12)
+                arrDate[0]++;
+            else arrDate[1]++;
+        else arrDate[2]++;
+        return arrDate;
     }
 
     public ArrayList<CalendarItem> findItemsWithDate(ArrayList<CalendarItem> calendarItems, String date){
