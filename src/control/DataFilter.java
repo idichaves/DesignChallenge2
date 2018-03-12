@@ -138,7 +138,9 @@ public class DataFilter {
                 }
             else nDay--;
         }
+
         int[] date = new int[]{nYear, nMonth, nDay};
+        arrDates.add(date[2]);
         return date;
     }
 
@@ -159,6 +161,7 @@ public class DataFilter {
                 arrDate[2] = 1;
             }
         else arrDate[2]++;
+        arrDates.add(arrDate[2]);
         return arrDate;
     }
 

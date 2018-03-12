@@ -40,19 +40,12 @@ public class WeekViewPanel extends JPanel {
                 return false;
             }
         };
-        weekTableModel.setColumnIdentifiers(new String[] {"Time", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"});
+
         weekTable = new JTable(weekTableModel);
         weekTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         weekTable.setRowHeight(50);
         weekTable.getTableHeader().setResizingAllowed(false);
-        weekTable.getColumn("Time").setPreferredWidth(70);
-        weekTable.getColumn("Mon").setPreferredWidth(200);
-        weekTable.getColumn("Tue").setPreferredWidth(200);
-        weekTable.getColumn("Wed").setPreferredWidth(200);
-        weekTable.getColumn("Thu").setPreferredWidth(200);
-        weekTable.getColumn("Fri").setPreferredWidth(200);
-        weekTable.getColumn("Sat").setPreferredWidth(200);
-        weekTable.getColumn("Sun").setPreferredWidth(200);
+
 
         /******************FOR EVENTS****************/
         Date date = null;
@@ -77,6 +70,18 @@ public class WeekViewPanel extends JPanel {
 
         scrollWeekTable = new JScrollPane(weekTable, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scrollWeekTable.setBounds(0, 50, 555, 394);
+        Object[] arrDays =  d.getArrDates().toArray();
+        weekTableModel.setColumnIdentifiers(new String[] {"Time", "Monday (" + arrDays[0]  + ")", "Tuesday (" + arrDays[1] + ")", "Wednesday ("
+                + arrDays[2] + ")", "Thursday (" + arrDays[3] + ")", "Friday (" + arrDays[4] + ")", "Saturday (" + arrDays[5] + ")", "Sunday (" +
+                arrDays[6] + ")"});
+        weekTable.getColumn("Time").setPreferredWidth(70);
+        weekTable.getColumn("Monday (" + arrDays[0] + ")").setPreferredWidth(200);
+        weekTable.getColumn("Tuesday (" + arrDays[1] + ")").setPreferredWidth(200);
+        weekTable.getColumn("Wednesday (" + arrDays[2] + ")").setPreferredWidth(200);
+        weekTable.getColumn("Thursday (" + arrDays[3] + ")").setPreferredWidth(200);
+        weekTable.getColumn("Friday (" + arrDays[4] + ")").setPreferredWidth(200);
+        weekTable.getColumn("Saturday (" + arrDays[5] + ")").setPreferredWidth(200);
+        weekTable.getColumn("Sunday (" + arrDays[6] + ")").setPreferredWidth(200);
         add(scrollWeekTable);
     }
 
@@ -92,18 +97,5 @@ public class WeekViewPanel extends JPanel {
         }
         int[] date = new int[]{nYear, nMonth, nDay};
         return date;
-    }
-
-    private int[] insertAll(int[] arrDate, ArrayList<CalendarItem> calendarItems, DefaultTableModel weekTableModel,String sFilter, int nCol){//arrdate = nYear, nMonth, nDay
-        String sDate = arrDate[1] + "/" +arrDate[2] + "/" + arrDate[0];
-        GregorianCalendar gCalendar = new GregorianCalendar(arrDate[0], arrDate[1] - 1, arrDate[2]);
-        new DataFilter().itemsForTheDay(weekTableModel, calendarItems, sDate, sFilter, nCol);
-        int maxDate = gCalendar.getActualMaximum(gCalendar.DAY_OF_MONTH);
-        if(arrDate[2] + 1 > maxDate)
-            if(arrDate[1] > 12)
-                arrDate[0]++;
-            else arrDate[1]++;
-        else arrDate[2]++;
-        return arrDate;
     }
 }
