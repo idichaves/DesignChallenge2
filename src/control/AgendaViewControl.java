@@ -31,7 +31,9 @@ public class AgendaViewControl {
            else if (o1.getHrStart() > o2.getHrStart())
                return 1;
            else
-               return 0;
+               if (o1.getMinStart() < o2.getMinStart())
+                   return -1;
+               else return 1;
            }
         });
 
