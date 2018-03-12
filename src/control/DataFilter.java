@@ -3,13 +3,18 @@ package control;
 import model.CalendarItem;
 import model.Event;
 import model.ToDo;
-import org.jdatepicker.impl.JDatePickerImpl;
 
 import javax.swing.table.DefaultTableModel;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
 public class DataFilter {
+
+    private ArrayList<Integer> arrDates;
+
+    public  DataFilter(){
+        arrDates = new ArrayList<>();
+    }
 
     public void inserTtems(ArrayList<CalendarItem> calendarItems, DefaultTableModel tableModel, String sFilter,int row, int col){
         String sItemToInsert = "";
@@ -115,26 +120,39 @@ public class DataFilter {
 
     public int[] getMonday(int nSubtrahend, int nYear, int nMonth, int nDay){
         for (int i = 0; i < nSubtrahend ; nSubtrahend--) {
+
             if(nDay - 1 == 0)
-                if(nMonth - 1 == 0)
+                if(nMonth - 1 == 0) {
                     nYear--;
-                else
+                    nMonth = 12;
+                    nDay = new GregorianCalendar(nYear, nMonth - 1, 1).getActualMaximum(GregorianCalendar.DAY_OF_MONTH);
+                }
+                else {
                     nMonth--;
+                    nDay = new GregorianCalendar(nYear, nMonth - 1, 1).getActualMaximum(GregorianCalendar.DAY_OF_MONTH);
+                }
             else nDay--;
         }
         int[] date = new int[]{nYear, nMonth, nDay};
         return date;
     }
 
-    public int[] insertAll(int[] arrDate, ArrayList<CalendarItem> calendarItems, DefaultTableModel weekTableModel,String sFilter, int nCol){//arrdate = nYear, nMonth, nDay
-        String sDate = arrDate[1] + "/" +arrDate[2] + "/" + arrDate[0];
+    public int[] insertAll(int[] arrDate, ArrayList<CalendarItem> calendarItems,
+                           DefaultTableModel weekTableModel,String sFilter, int nCol){//arrdate = nYear, nMonth, nDay
+        String sDate = arrDate[1] + "/" +arrDate[2] + "/" + arrDate[0]; //nMonth, nDay, nyear
         GregorianCalendar gCalendar = new GregorianCalendar(arrDate[0], arrDate[1] - 1, arrDate[2]);
         itemsForTheDay(weekTableModel, calendarItems, sDate, sFilter, nCol);
         int maxDate = gCalendar.getActualMaximum(gCalendar.DAY_OF_MONTH);
         if(arrDate[2] + 1 > maxDate)
-            if(arrDate[1] > 12)
+            if(arrDate[1] + 1 > 12) {
                 arrDate[0]++;
-            else arrDate[1]++;
+                arrDate[1] = 1;
+                arrDate[2] = 1;
+            }
+            else {
+                arrDate[1]++;
+                arrDate[2] = 1;
+            }
         else arrDate[2]++;
         return arrDate;
     }
@@ -147,5 +165,9 @@ public class DataFilter {
         }
 
         return items;
+    }
+
+    public ArrayList<Integer> getArrDates() {
+        return arrDates;
     }
 }

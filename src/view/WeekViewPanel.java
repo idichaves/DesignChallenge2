@@ -27,21 +27,18 @@ public class WeekViewPanel extends JPanel {
         int nYear = datePicker.getModel().getYear();
         int nMonth = datePicker.getModel().getMonth() + 1;
         int nDay = datePicker.getModel().getDay();
-        GregorianCalendar gCalendar = new GregorianCalendar(nYear, nMonth -1, nDay);
-        JLabel lblThisWeek = new JLabel("Week " + gCalendar.WEEK_OF_MONTH) ;
+        String sDate = nMonth + "/" + nDay + "/" + nYear;
+        JLabel lblThisWeek = new JLabel("Week of " + sDate) ;
         setLayout(null);
         lblThisWeek.setFont(new Font("Rockwell", Font.PLAIN, 20));
         lblThisWeek.setBounds(30, 13, 204, 35);
         add(lblThisWeek);
-
         weekTableModel = new DefaultTableModel(48, 8){
             public boolean isCellEditable(int row, int col){
                 return false;
             }
         };
-        weekTableModel.setColumnIdentifiers(new String[] {"Time", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"});
-
-
+        weekTableModel.setColumnIdentifiers(new String[] {"Time", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"});
         weekTable = new JTable(weekTableModel);
         weekTable.setRowHeight(50);
         weekTable.getTableHeader().setResizingAllowed(false);
@@ -60,7 +57,8 @@ public class WeekViewPanel extends JPanel {
         DataFilter d = new DataFilter();
         int[] arrDate = d.getMonday(d.dayChecker(dayOfWeek), nYear, nMonth, nDay);
         d.itemsForTheDay(weekTableModel);
-        for (int i = 1; i < weekTableModel.getColumnCount(); i++)
+
+        for (int i = 1; i < 8; i++)
             arrDate = d.insertAll(arrDate, calendarItems, weekTableModel, sFilter, i); //Year, Month, Day
 //            GregorianCalendar gCalendar = new GregorianCalendar(nYear, nMonth -1, nDay);//nMonth - 1 current month for gregCal const
 //            new DataFilter().itemsForTheDay(weekTableModel,calendarItems, sDate, sFilter, i);
@@ -71,6 +69,7 @@ public class WeekViewPanel extends JPanel {
         scrollWeekTable.setBounds(new Rectangle(0, 61, 555, 394));
         add(scrollWeekTable);
     }
+
     //All Methods BELOW will be moved to DataFilter class later
     private int[] getMonday(int nSubtrahend, int nYear, int nMonth, int nDay){
         for (int i = 0; i < nSubtrahend ; nSubtrahend--) {
