@@ -27,6 +27,7 @@ public class MonthViewPanel extends JPanel {
     private JRadioButton rdbtnDayView;
     private JRadioButton rdbtnWeekView;
     private JRadioButton rdbtnAgendaView;
+    private JRadioButton rdbtnWeeklyAgenda;
     private ButtonGroup itemGroup;
     private ButtonGroup viewGroup;
     private MonthViewControl controller;
@@ -243,6 +244,13 @@ public class MonthViewPanel extends JPanel {
                 itemPanel.repaint();
             }
         });
+
+        /*rdbtnWeeklyAgenda = new JRadioButton("Weekly Agenda");
+        rdbtnWeeklyAgenda.setFont(new Font("Rockwell", Font.PLAIN, 15));
+        rdbtnWeeklyAgenda.setBounds(177, 334, 157, 30);
+        add(rdbtnWeeklyAgenda);
+        rdbtnWeeklyAgenda.addActionListener();*/
+
         datePicker.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent arg0){
@@ -301,6 +309,7 @@ public class MonthViewPanel extends JPanel {
         viewGroup.add(rdbtnDayView);
         viewGroup.add(rdbtnWeekView);
         viewGroup.add(rdbtnAgendaView);
+        viewGroup.add(rdbtnWeeklyAgenda);
 
 //        for (int i = 0; i < datePicker.getComponentCount(); i++) {
 //            if(datePicker.getComponent(i) instanceof JButton) {

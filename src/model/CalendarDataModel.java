@@ -46,16 +46,14 @@ public class CalendarDataModel {
 
     //for controller's use
     public void addCalendarItem(CalendarItem item){
-        calendarItems.add(item);
         for (int i = 0; i < fileImporters.size(); i++)
             fileImporters.get(i).writeData(item);
     }
 
     public boolean checkNoOverlap(String date, String timeStart, String timeEnd, String type){
-        ArrayList<CalendarItem> items = new DataFilter().findItemsWithDate(calendarItems, date);
+        ArrayList<CalendarItem> items = new DataFilter().findItemsWithDate(getCalendarItems(), date);
         boolean noOverlap = true;
         String[] startComps = timeStart.split(":");
-        String[] endComps = timeEnd.split(":");
         if (type.equals("ToDo")) {
             int nMinStart = Integer.parseInt(startComps[1]);
             int nHrStart = Integer.parseInt(startComps[0]);
@@ -72,6 +70,7 @@ public class CalendarDataModel {
             endBuilder.append(Integer.toString(nMinStart));
             timeEnd = endBuilder.toString();
         }
+        String[] endComps = timeEnd.split(":");
 
         if (items.size() > 0){
             for (int i = 0; i < items.size() && noOverlap; i++){
@@ -89,6 +88,4 @@ public class CalendarDataModel {
 
         return noOverlap;
     }
-
-
 }

@@ -13,7 +13,6 @@ public class WeekViewPanel extends JPanel {
     private JTable weekTable;
     private JScrollPane scrollWeekTable;
 
-    //append additional parameters in front of filterType
     public WeekViewPanel(String filterType, JDatePickerImpl datePicker) {
         setLayout(null);
 
