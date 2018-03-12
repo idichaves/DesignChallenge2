@@ -73,6 +73,7 @@ public class WeekViewPanel extends JPanel {
     }
     //All Methods BELOW will be moved to DataFilter class later
 
+<<<<<<< HEAD
 
     // for controller to add columns/dates to the week table
     public void addTableColumn(String header /* or 2D array */){
@@ -81,4 +82,31 @@ public class WeekViewPanel extends JPanel {
         weekTable.repaint();
     }
 
+=======
+    private int[] getMonday(int nSubtrahend, int nYear, int nMonth, int nDay){
+        for (int i = 0; i < nSubtrahend ; nSubtrahend--) {
+            if(nDay - 1 == 0)
+                if(nMonth - 1 == 0)
+                    nYear--;
+                else
+                    nMonth--;
+            else nDay--;
+        }
+        int[] date = new int[]{nYear, nMonth, nDay};
+        return date;
+    }
+
+    private int[] insertAll(int[] arrDate, ArrayList<CalendarItem> calendarItems, DefaultTableModel weekTableModel,String sFilter, int nCol){//arrdate = nYear, nMonth, nDay
+        String sDate = arrDate[1] + "/" +arrDate[2] + "/" + arrDate[0];
+        GregorianCalendar gCalendar = new GregorianCalendar(arrDate[0], arrDate[1] - 1, arrDate[2]);
+        new DataFilter().itemsForTheDay(weekTableModel, calendarItems, sDate, sFilter, nCol);
+        int maxDate = gCalendar.getActualMaximum(gCalendar.DAY_OF_MONTH);
+        if(arrDate[2] + 1 > maxDate)
+            if(arrDate[1] > 12)
+                arrDate[0]++;
+            else arrDate[1]++;
+        else arrDate[2]++;
+        return arrDate;
+    }
+>>>>>>> 11995741261766a1c1a90b2d8b294986681bacbe
 }

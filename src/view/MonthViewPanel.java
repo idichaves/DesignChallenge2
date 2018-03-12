@@ -104,7 +104,7 @@ public class MonthViewPanel extends JPanel {
                     itemPanel.repaint();
                 }
                 else if (rdbtnAgendaView.isSelected()) {
-                    eventView = new AgendaViewPanel(datePicker.getJFormattedTextField().getText(), rdbtnEvent.getText());
+                    eventView = new AgendaViewPanel(datePicker.getJFormattedTextField().getText(), rdbtnEvent.getText(), model);
 
                     eventView.setBounds(0, 0, 555,445);
                     itemPanel.removeAll();
@@ -136,7 +136,7 @@ public class MonthViewPanel extends JPanel {
                     itemPanel.repaint();
                 }
                 else if (rdbtnAgendaView.isSelected()) {
-                    eventView = new AgendaViewPanel(datePicker.getJFormattedTextField().getText(), rdbtnTask.getText());
+                    eventView = new AgendaViewPanel(datePicker.getJFormattedTextField().getText(), rdbtnTask.getText(), model);
 
                     eventView.setBounds(0, 0, 555,445);
                     itemPanel.removeAll();
@@ -167,7 +167,7 @@ public class MonthViewPanel extends JPanel {
                     itemPanel.repaint();
                 }
                 else if (rdbtnAgendaView.isSelected()) {
-                    eventView = new AgendaViewPanel(datePicker.getJFormattedTextField().getText(), rdbtnAll.getText());
+                    eventView = new AgendaViewPanel(datePicker.getJFormattedTextField().getText(), rdbtnAll.getText(), model);
 
                     eventView.setBounds(0, 0, 555,445);
                     itemPanel.removeAll();
@@ -234,11 +234,11 @@ public class MonthViewPanel extends JPanel {
                 // TODO Auto-generated method stub
                 JPanel agendaView = new JPanel();
                 if(rdbtnEvent.isSelected())
-                    agendaView = new AgendaViewPanel(datePicker.getJFormattedTextField().getText(), rdbtnEvent.getText());
+                    agendaView = new AgendaViewPanel(datePicker.getJFormattedTextField().getText(), rdbtnEvent.getText(), model);
                 else if (rdbtnTask.isSelected())
-                    agendaView = new AgendaViewPanel(datePicker.getJFormattedTextField().getText(), rdbtnTask.getText());
+                    agendaView = new AgendaViewPanel(datePicker.getJFormattedTextField().getText(), rdbtnTask.getText(), model);
                 else
-                    agendaView = new AgendaViewPanel(datePicker.getJFormattedTextField().getText(), rdbtnAll.getText());
+                    agendaView = new AgendaViewPanel(datePicker.getJFormattedTextField().getText(), rdbtnAll.getText(), model);
 
                 agendaView.setBounds(0, 0, 555, 445);
                 itemPanel.removeAll();
@@ -285,11 +285,11 @@ public class MonthViewPanel extends JPanel {
                 }
                 else if (rdbtnAgendaView.isSelected()){
                     if (rdbtnEvent.isSelected())
-                        contentView = new AgendaViewPanel(datePicker.getJFormattedTextField().getText(), rdbtnEvent.getText());
+                        contentView = new AgendaViewPanel(datePicker.getJFormattedTextField().getText(), rdbtnEvent.getText(), model);
                     else if (rdbtnTask.isSelected())
-                        contentView = new AgendaViewPanel(datePicker.getJFormattedTextField().getText(), rdbtnTask.getText());
+                        contentView = new AgendaViewPanel(datePicker.getJFormattedTextField().getText(), rdbtnTask.getText(), model);
                     else
-                        contentView = new AgendaViewPanel(datePicker.getJFormattedTextField().getText(), rdbtnAll.getText());
+                        contentView = new AgendaViewPanel(datePicker.getJFormattedTextField().getText(), rdbtnAll.getText(), model);
 
                     contentView.setBounds(0, 0, 555, 445);
                     itemPanel.removeAll();

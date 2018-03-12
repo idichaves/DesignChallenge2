@@ -90,11 +90,33 @@ public abstract class CalendarItem extends AbstractModel {
     }
 
     public String timeStartToString() {
-        return "" + hrStart + ":" + minStart;
+        if (hrStart >= 10) {
+            if (minStart >= 10)
+                return "" + hrStart + ":" + minStart;
+            else
+                return "" + hrStart + ":0" + minStart;
+        }
+        else{
+            if (minStart >= 10)
+                return "0" + hrStart + ":" + minStart;
+            else
+                return "0" + hrStart + ":0" + minStart;
+        }
     }
 
     public String timeEndToString() {
-        return "" + hrEnd + ":" + minEnd;
+        if (hrEnd >= 10) {
+            if (minEnd >= 10)
+                return "" + hrEnd + ":" + minEnd;
+            else
+                return "" + hrEnd + ":0" + minEnd;
+        }
+        else{
+            if (minEnd >= 10)
+                return "0" + hrEnd + ":" + minEnd;
+            else
+                return "0" + hrEnd + ":0" + minEnd;
+        }
     }
 
     public String durationToString(){
