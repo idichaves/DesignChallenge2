@@ -4,18 +4,11 @@ import control.DataFilter;
 import model.CalendarItem;
 import org.jdatepicker.impl.JDatePickerImpl;
 import javax.swing.*;
-import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellRenderer;
 import java.awt.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 
-import org.threeten.extra.Weeks;
-import org.threeten.extra.YearWeek;
-
-import java.time.temporal.WeekFields;
 import java.util.*;
 
 public class WeekViewPanel extends JPanel {
@@ -83,6 +76,7 @@ public class WeekViewPanel extends JPanel {
         weekTable.getColumn("Friday (" + arrDays[4] + ")").setPreferredWidth(200);
         weekTable.getColumn("Saturday (" + arrDays[5] + ")").setPreferredWidth(200);
         weekTable.getColumn("Sunday (" + arrDays[6] + ")").setPreferredWidth(200);
+        new TableCellRender().TableRenderer(weekTable);
         add(scrollWeekTable);
     }
 
