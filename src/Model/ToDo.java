@@ -3,7 +3,7 @@ package model;
 public class ToDo extends CalendarItem {
     private boolean accomplished;
 
-    public ToDo(String date, String timeStart, String timeEnd, String name/*, String color */) {
+    public ToDo(String date, String timeStart, String timeEnd, String name, boolean accomplished/*, String color */) {
         String[] dateComps = date.split("/");
         super.setMonth(Integer.parseInt(dateComps[0]));
         super.setDay(Integer.parseInt(dateComps[1]));
@@ -19,7 +19,7 @@ public class ToDo extends CalendarItem {
 
         super.setName(name);
         //super.setColor(color);
-        accomplished = false;
+        this.accomplished = accomplished;
     }
 
     public boolean isAccomplished() {

@@ -33,7 +33,7 @@ public class AddItemControl {
             endBuilder.append(Integer.toString(nMinStart));
             timeEnd = endBuilder.toString();
 
-            model.addCalendarItem(new ToDo(date, timeStart, timeEnd, name));
+            model.addCalendarItem(new ToDo(date, timeStart, timeEnd, name, false));
         }
     }
 

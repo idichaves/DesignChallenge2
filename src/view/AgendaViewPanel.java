@@ -54,7 +54,7 @@ public class AgendaViewPanel extends JPanel {
             });
         }
         else{
-            JCheckBox checkBox = new JCheckBox("<html><strike>" + time + name + "</strike></html>");
+            JCheckBox checkBox = new JCheckBox("<html><strike>" + time + " "+ name + "</strike></html>");
             checkBox.setFont(new Font("Rockwell", Font.PLAIN, 20));
             checkBox.setBounds(0, 0, 500, 30);
             checkBox.setSelected(true);

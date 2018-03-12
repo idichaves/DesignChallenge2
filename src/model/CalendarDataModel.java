@@ -41,7 +41,7 @@ public class CalendarDataModel {
                 CalendarItem item;
                 ((ToDo) items.get(i)).setAccomplished(status);
                 item = items.get(i);
-                fileImporters.get(i).deleteItem(items.get(i));
+                fileImporters.get(0).deleteItem(items.get(i));
                 addCalendarItem(item);
             }
         }

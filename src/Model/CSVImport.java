@@ -21,7 +21,8 @@ public class CSVImport extends FileImport {
     public void readData() {
         // TODO read data from csv file
         try {
-            String sColor = "none";
+            String sAccomplished = "none";
+            boolean accomplished;
             while(!calendarItems.isEmpty())
                 calendarItems.remove(0);
             System.out.println(calendarItems.size());
@@ -36,14 +37,20 @@ public class CSVImport extends FileImport {
 //                String[] arrEndTime = event[nEndTimeIndex].trim().split(":"); //hh:mm
                 String sType = event[nTypeIndex].trim();
                 String sName = event[nNameIndex].trim();
-                if(nColorIndex < event.length)
-                    sColor = event[nColorIndex];
+                if(nAccomplishedIndex < event.length)
+                    sAccomplished = event[nAccomplishedIndex];
+
+                if (sAccomplished.equalsIgnoreCase("true"))
+                    accomplished = true;
+                else
+                    accomplished = false;
+
                 if(isEvent(sType))
                     calendarItems.add(new Event(event[nDateIndex].trim(), event[nStartTimeIndex].trim(), event[nEndTimeIndex].trim(),
                             sName));
                 else if(isToDo(sType))
                     calendarItems.add(new ToDo(event[nDateIndex].trim(), event[nStartTimeIndex].trim(), event[nEndTimeIndex].trim(),
-                            sName));
+                            sName, accomplished));
                 /******append conditional statements here for additional types of events follow previous examples******/
             }
             bf.close();
@@ -92,6 +99,8 @@ public class CSVImport extends FileImport {
                 write.append(","); //3rd sep
                 write.append(e.timeStartToString() + ",");//4th sep
                 write.append(e.timeEndToString() + ",");//5th sep
+                if (e instanceof ToDo)
+                    write.append(((ToDo) e).isAccomplished() + ",");//6th sep
                 pw.println(write.toString());
             }
             pw.close();
