@@ -4,7 +4,9 @@ import control.DataFilter;
 import model.CalendarItem;
 import org.jdatepicker.impl.JDatePickerImpl;
 import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 import java.awt.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -62,7 +64,7 @@ public class WeekViewPanel extends JPanel {
             arrDate = d.insertAll(arrDate, calendarItems, weekTableModel, sFilter, i); //Year, Month, Day
 //            GregorianCalendar gCalendar = new GregorianCalendar(nYear, nMonth -1, nDay);//nMonth - 1 current month for gregCal const
 //            new DataFilter().itemsForTheDay(weekTableModel,calendarItems, sDate, sFilter, i);
-
+//        weekTable.setDefaultRenderer(weekTable.getColumnClass(0),);
         /**************End of FOR EVENTS*************/
 
         scrollWeekTable = new JScrollPane(weekTable);
