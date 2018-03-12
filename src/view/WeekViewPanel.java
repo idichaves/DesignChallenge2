@@ -58,7 +58,7 @@ public class WeekViewPanel extends JPanel {
         int[] arrDate = d.getMonday(d.dayChecker(dayOfWeek), nYear, nMonth, nDay);
         d.itemsForTheDay(weekTableModel);
 
-        for (int i = 1; i < weekTableModel.getColumnCount(); i++)
+        for (int i = 1; i < 8; i++)
             arrDate = d.insertAll(arrDate, calendarItems, weekTableModel, sFilter, i); //Year, Month, Day
 //            GregorianCalendar gCalendar = new GregorianCalendar(nYear, nMonth -1, nDay);//nMonth - 1 current month for gregCal const
 //            new DataFilter().itemsForTheDay(weekTableModel,calendarItems, sDate, sFilter, i);

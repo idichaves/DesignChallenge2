@@ -139,14 +139,20 @@ public class DataFilter {
 
     public int[] insertAll(int[] arrDate, ArrayList<CalendarItem> calendarItems,
                            DefaultTableModel weekTableModel,String sFilter, int nCol){//arrdate = nYear, nMonth, nDay
-        String sDate = arrDate[1] + "/" +arrDate[2] + "/" + arrDate[0];
+        String sDate = arrDate[1] + "/" +arrDate[2] + "/" + arrDate[0]; //nMonth, nDay, nyear
         GregorianCalendar gCalendar = new GregorianCalendar(arrDate[0], arrDate[1] - 1, arrDate[2]);
         itemsForTheDay(weekTableModel, calendarItems, sDate, sFilter, nCol);
         int maxDate = gCalendar.getActualMaximum(gCalendar.DAY_OF_MONTH);
         if(arrDate[2] + 1 > maxDate)
-            if(arrDate[1] > 12)
+            if(arrDate[1] + 1 > 12) {
                 arrDate[0]++;
-            else arrDate[1]++;
+                arrDate[1] = 1;
+                arrDate[2] = 1;
+            }
+            else {
+                arrDate[1]++;
+                arrDate[2] = 1;
+            }
         else arrDate[2]++;
         return arrDate;
     }
