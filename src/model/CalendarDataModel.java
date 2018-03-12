@@ -80,7 +80,7 @@ public class CalendarDataModel {
                 LocalTime localStartB = LocalTime.of(items.get(i).getHrStart(), items.get(i).getMinStart());
                 LocalTime localEndB = LocalTime.of(items.get(i).getHrEnd(), items.get(i).getMinEnd());
 
-                if (localStartA.isBefore(localEndB) && localEndA.isAfter(localStartB)){
+                if (/*localStartA.isBefore(localEndB) && localEndA.isAfter(localStartB) && */!localStartA.isAfter(localEndB) && !localStartB.isAfter(localEndA)){
                     noOverlap = false;
                 }
             }

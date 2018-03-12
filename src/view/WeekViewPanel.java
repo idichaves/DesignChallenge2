@@ -72,17 +72,6 @@ public class WeekViewPanel extends JPanel {
         add(scrollWeekTable);
     }
     //All Methods BELOW will be moved to DataFilter class later
-
-<<<<<<< HEAD
-
-    // for controller to add columns/dates to the week table
-    public void addTableColumn(String header /* or 2D array */){
-        weekTableModel.addColumn(header);
-        //weekTableModel.setDataVector(); set the table's contents on the first 2d array param, set the table's column headers on the second array param.
-        weekTable.repaint();
-    }
-
-=======
     private int[] getMonday(int nSubtrahend, int nYear, int nMonth, int nDay){
         for (int i = 0; i < nSubtrahend ; nSubtrahend--) {
             if(nDay - 1 == 0)
@@ -108,5 +97,4 @@ public class WeekViewPanel extends JPanel {
         else arrDate[2]++;
         return arrDate;
     }
->>>>>>> 11995741261766a1c1a90b2d8b294986681bacbe
 }
