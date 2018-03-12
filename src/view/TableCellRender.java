@@ -18,10 +18,9 @@ public class TableCellRender{
                     setBackground(new Color(220,220,255));
                 else if(getText().contains("Task: "))
                     setBackground(Color.decode("#1ad8bc"));
-                else if(getText().contains("Event: ")) {
+                else if(getText().contains("Event: "))
                     setBackground(Color.decode("#d8791a"));
-                    setForeground(Color.WHITE);
-                }
+                
                 else
                     setBackground(Color.decode("#a2ada8"));
                 setBorder(null);
