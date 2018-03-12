@@ -26,6 +26,7 @@ public class WeekViewPanel extends JPanel {
 
     //append additional parameters in front of filterType
     public WeekViewPanel(String sFilter, JDatePickerImpl datePicker, ArrayList<CalendarItem> calendarItems) {
+
         int nYear = datePicker.getModel().getYear();
         int nMonth = datePicker.getModel().getMonth() + 1;
         int nDay = datePicker.getModel().getDay();
