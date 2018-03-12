@@ -16,9 +16,9 @@ public class AgendaViewControl {
 
         for (int i = 0; i < items.size(); i++){
             if (items.get(i) instanceof Event)
-                panel.append(items.get(i).durationToString() + " " + items.get(i).getName());
+                panel.addEvent(items.get(i).durationToString(), items.get(i).getName());
             else
-                panel.append(items.get(i).timeStartToString() + " " + items.get(i).getName());
+                panel.addTask(items.get(i).timeStartToString(), items.get(i).getName(), ((ToDo) items.get(i)).isAccomplished());
         }
     }
 

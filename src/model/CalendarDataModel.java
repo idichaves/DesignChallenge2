@@ -5,7 +5,6 @@ import control.DataFilter;
 import java.util.ArrayList;
 import java.time.LocalTime;
 
-import static java.lang.Math.abs;
 import static java.time.temporal.ChronoUnit.MINUTES;
 
 public class CalendarDataModel {
@@ -33,6 +32,14 @@ public class CalendarDataModel {
         }
 
         return calendarItems;
+    }
+
+    public void setTaskStatus(String name, boolean status){
+        ArrayList<CalendarItem> items = getCalendarItems();
+        for (int i = 0; i < items.size(); i++){
+            if (items.get(i).getName().equals(name) && items.get(i) instanceof ToDo)
+                ((ToDo) items.get(i)).setAccomplished(status);
+        }
     }
 
     public MonthViewModel getMonthViewModel() {
