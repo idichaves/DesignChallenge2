@@ -1,12 +1,8 @@
 package view;
 
-import model.CalendarItem;
-
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.TableCellRenderer;
 import java.awt.*;
-import java.util.ArrayList;
 
 public class TableCellRender{
     public void TableRenderer(JTable calendarTable){
@@ -20,10 +16,9 @@ public class TableCellRender{
                     setBackground(Color.decode("#1ad8bc"));
                 else if(getText().contains("Event: "))
                     setBackground(Color.decode("#d8791a"));
-
                 else
                     setBackground(Color.decode("#a2ada8"));
-                setBorder(null);
+//                setBorder(null);
 
 //                if(cColor !=null)
 //                    setForeground(cColor);

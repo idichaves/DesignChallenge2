@@ -14,7 +14,7 @@ public class AddItemControl {
 
     public void passToModel(CalendarDataModel model, String date, String timeStart, String timeEnd, String name, String itemType){
         if (itemType.equalsIgnoreCase("Event")){
-            model.addCalendarItem(new Event(date, timeStart, timeEnd, name));
+            model.addCalendarItem(new Event(date, timeStart, timeEnd, name, false));
         }
         else { //ADD TIME END SETTING ALGORITHM HERE
             String[] startComps = timeStart.split(":");

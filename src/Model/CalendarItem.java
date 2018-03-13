@@ -1,11 +1,10 @@
 package model;
 
-public abstract class CalendarItem extends AbstractModel {
+public abstract class CalendarItem {
     protected int month;
     protected int day;
     protected int year;
     protected String name;
-    //protected String color;
     protected int hrStart;
     protected int minStart;
     protected int hrEnd;
@@ -122,11 +121,4 @@ public abstract class CalendarItem extends AbstractModel {
     public String durationToString(){
         return timeStartToString() + " - " + timeEndToString();
     }
-    /*public void setColor(String color){
-        this.color = color;
-    }
-
-    public String getColor(){
-        return color;
-    } */
 }

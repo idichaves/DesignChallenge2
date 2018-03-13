@@ -34,7 +34,7 @@ public class WeekViewPanel extends JPanel {
                 return false;
             }
         };
-
+        setBackground(Color.decode("#19aaa2"));
         weekTable = new JTable(weekTableModel);
         weekTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         weekTable.setRowHeight(50);
@@ -49,7 +49,6 @@ public class WeekViewPanel extends JPanel {
         }catch (ParseException e){
             e.printStackTrace();
         }
-
         String dayOfWeek = new SimpleDateFormat("EEEE", Locale.ENGLISH).format(date);
         DataFilter d = new DataFilter();
         int[] arrDate = d.getMonday(d.dayChecker(dayOfWeek), nYear, nMonth, nDay);
@@ -64,33 +63,19 @@ public class WeekViewPanel extends JPanel {
 
         scrollWeekTable = new JScrollPane(weekTable, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scrollWeekTable.setBounds(0, 50, 555, 394);
-        Object[] arrDays =  d.getArrDates().toArray();
-        weekTableModel.setColumnIdentifiers(new String[] {"Time", "Monday (" + arrDays[0]  + ")", "Tuesday (" + arrDays[1] + ")", "Wednesday ("
-                + arrDays[2] + ")", "Thursday (" + arrDays[3] + ")", "Friday (" + arrDays[4] + ")", "Saturday (" + arrDays[5] + ")", "Sunday (" +
-                arrDays[6] + ")"});
+        ArrayList<int[]> arrDays =  d.getArrDates();
+        weekTableModel.setColumnIdentifiers(new String[] {"Time", "Monday (" + arrDays.get(0)[2]  + ")", "Tuesday (" + arrDays.get(1)[2] + ")", "Wednesday ("
+                + arrDays.get(2)[2] + ")", "Thursday (" + arrDays.get(3)[2] + ")", "Friday (" + arrDays.get(4)[2] + ")",
+                "Saturday (" + arrDays.get(5)[2] + ")", "Sunday (" + arrDays.get(6)[2] + ")"});
         weekTable.getColumn("Time").setPreferredWidth(70);
-        weekTable.getColumn("Monday (" + arrDays[0] + ")").setPreferredWidth(200);
-        weekTable.getColumn("Tuesday (" + arrDays[1] + ")").setPreferredWidth(200);
-        weekTable.getColumn("Wednesday (" + arrDays[2] + ")").setPreferredWidth(200);
-        weekTable.getColumn("Thursday (" + arrDays[3] + ")").setPreferredWidth(200);
-        weekTable.getColumn("Friday (" + arrDays[4] + ")").setPreferredWidth(200);
-        weekTable.getColumn("Saturday (" + arrDays[5] + ")").setPreferredWidth(200);
-        weekTable.getColumn("Sunday (" + arrDays[6] + ")").setPreferredWidth(200);
+        weekTable.getColumn("Monday (" + arrDays.get(0)[2] + ")").setPreferredWidth(200);
+        weekTable.getColumn("Tuesday (" + arrDays.get(1)[2] + ")").setPreferredWidth(200);
+        weekTable.getColumn("Wednesday (" + arrDays.get(2)[2] + ")").setPreferredWidth(200);
+        weekTable.getColumn("Thursday (" + arrDays.get(3)[2] + ")").setPreferredWidth(200);
+        weekTable.getColumn("Friday (" + arrDays.get(4)[2] + ")").setPreferredWidth(200);
+        weekTable.getColumn("Saturday (" + arrDays.get(5)[2] + ")").setPreferredWidth(200);
+        weekTable.getColumn("Sunday (" + arrDays.get(6)[2] + ")").setPreferredWidth(200);
         new TableCellRender().TableRenderer(weekTable);
         add(scrollWeekTable);
-    }
-
-    //All Methods BELOW will be moved to DataFilter class later
-    private int[] getMonday(int nSubtrahend, int nYear, int nMonth, int nDay){
-        for (int i = 0; i < nSubtrahend ; nSubtrahend--) {
-            if(nDay - 1 == 0)
-                if(nMonth - 1 == 0)
-                    nYear--;
-                else
-                    nMonth--;
-            else nDay--;
-        }
-        int[] date = new int[]{nYear, nMonth, nDay};
-        return date;
     }
 }

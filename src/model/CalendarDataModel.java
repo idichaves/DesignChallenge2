@@ -1,5 +1,4 @@
 package model;
-
 import control.DataFilter;
 
 import java.util.ArrayList;
@@ -10,16 +9,12 @@ import static java.time.temporal.ChronoUnit.MINUTES;
 public class CalendarDataModel {
 
     private ArrayList<CalendarItem> calendarItems;
-    private MonthViewModel monthViewModel;
-    private DateLabelFormatter dateLabelFormatter;
     private ArrayList<FileImport> fileImporters;
 
     public CalendarDataModel(){
         calendarItems = new ArrayList<>();
         fileImporters = new ArrayList<>();
         fileImporters.add(new CSVImport());
-        dateLabelFormatter = new DateLabelFormatter();
-        monthViewModel = new MonthViewModel();
     }
 
     //gets content from file
@@ -34,8 +29,8 @@ public class CalendarDataModel {
         return calendarItems;
     }
 
-    public void setTaskStatus(String name, boolean status){
-        ArrayList<CalendarItem> items = getCalendarItems();
+    public void setTaskStatus(String name, String date, boolean status){
+        ArrayList<CalendarItem> items = new DataFilter().findItemsWithDate(getCalendarItems(), date);
         for (int i = 0; i < items.size(); i++){
             if (items.get(i).getName().equals(name) && items.get(i) instanceof ToDo) {
                 CalendarItem item;
@@ -47,8 +42,21 @@ public class CalendarDataModel {
         }
     }
 
-    public void removeTask(String name){
-        ArrayList<CalendarItem> items = getCalendarItems();
+    public void setEventStatus(String name, String date, boolean status){
+        ArrayList<CalendarItem> items = new DataFilter().findItemsWithDate(getCalendarItems(), date);
+        for(int i = 0; i < items.size(); i++){
+            if (items.get(i).getName().equals(name) && items.get(i) instanceof Event){
+                CalendarItem item;
+                ((Event) items.get(i)).setDone(status);
+                item = items.get(i);
+                fileImporters.get(fileImporters.size()-1).deleteItem(items.get(i));
+                addCalendarItem(item);
+            }
+        }
+    }
+
+    public void removeTask(String name, String date){
+        ArrayList<CalendarItem> items = new DataFilter().findItemsWithDate(getCalendarItems(), date);
         for (int i = 0; i < items.size(); i++){
             if (items.get(i).getName().equals(name) && items.get(i) instanceof ToDo) {
                 fileImporters.get(fileImporters.size()-1).deleteItem(items.get(i));
@@ -56,12 +64,13 @@ public class CalendarDataModel {
         }
     }
 
-    public MonthViewModel getMonthViewModel() {
-        return monthViewModel;
-    }
-
-    public DateLabelFormatter getDateLabelFormatter() {
-        return dateLabelFormatter;
+    public void removeEvent(String name, String date){
+        ArrayList<CalendarItem> items = new DataFilter().findItemsWithDate(getCalendarItems(), date);
+        for (int i = 0; i < items.size(); i++){
+            if (items.get(i).getName().equals(name) && items.get(i) instanceof Event){
+                fileImporters.get(fileImporters.size()-1).deleteItem(items.get(i));
+            }
+        }
     }
 
     public ArrayList<FileImport> getFileImporters() {

@@ -2,9 +2,9 @@ package model;
 
 public class Event extends CalendarItem {
 
-    private boolean holidayIndicator;
+    private boolean done;
 
-    public Event(String date, String timeStart, String timeEnd, String name/*, String color, boolean holidayIndicator */) {
+    public Event(String date, String timeStart, String timeEnd, String name, boolean done) {
         String[] dateComps = date.split("/");
         super.setMonth(Integer.parseInt(dateComps[0]));
         super.setDay(Integer.parseInt(dateComps[1]));
@@ -19,7 +19,14 @@ public class Event extends CalendarItem {
         super.setMinEnd(Integer.parseInt(timeEndComps[1]));
 
         super.setName(name);
-        //super.setColor(color);
-        //this.holidayIndicator = holidayIndicator;
+        this.done = done;
+    }
+
+    public boolean isDone(){
+        return done;
+    }
+
+    public void setDone(boolean done){
+        this.done = done;
     }
 }

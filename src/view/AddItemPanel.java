@@ -32,9 +32,12 @@ public class AddItemPanel extends JPanel {
 
     public AddItemPanel(JPanel itemPanel, JDatePickerImpl datePicker, CalendarDataModel model) {
         setLayout(null);
-
         addItemController = new AddItemControl();
-
+        String sZero = "";
+        if(datePicker.getModel().getMonth() < 10)
+            sZero = "0";
+        String sDate = sZero + (datePicker.getModel().getMonth() + 1) + "/" + datePicker.getModel().getDay() +
+                "/" + datePicker.getModel().getYear();
         JLabel lblName = new JLabel("Name:");
         lblName.setFont(new Font("Rockwell", Font.PLAIN, 16));
         lblName.setBounds(30, 75, 89, 27);
@@ -69,6 +72,7 @@ public class AddItemPanel extends JPanel {
         dateTxtField.setFont(new Font("Rockwell", Font.PLAIN, 15));
         dateTxtField.setBounds(131, 140, 115, 29);
         dateTxtField.setEditable(false);
+        dateTxtField.setText(sDate);
         add(dateTxtField);
         dateTxtField.setColumns(10);
 
@@ -136,6 +140,18 @@ public class AddItemPanel extends JPanel {
                 }
             }
         });
+        /*rdbtnTask.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                timeEndTxtField.setEnabled(false);
+            }
+        });
+        rdbtnEvent.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                timeEndTxtField.setEnabled(true);
+            }
+        });*/
 
         btnCancel = new JButton("Cancel");
         btnCancel.setFont(new Font("Rockwell", Font.PLAIN, 15));
@@ -178,7 +194,7 @@ public class AddItemPanel extends JPanel {
     public void reset() {
         nameTxtField.setText("");
         itemTypeGroup.clearSelection();
-        dateTxtField.setText("");
+//        dateTxtField.setText("");
         timeStarttxtField.setText("");
         timeEndTxtField.setText("");
     }
@@ -198,14 +214,34 @@ public class AddItemPanel extends JPanel {
         String[] timeEnd = timeEndTxtField.getText().split(":");
         boolean valid = true;
 
-        if (Integer.parseInt(timeStart[0]) > Integer.parseInt(timeEnd[0])){
+        if (isTimeInvalid(timeStart[0], timeEnd[0], timeStart[1], timeEnd[1])){
+            System.out.println("Accessed");
             valid = false;
         }
-        else if (Integer.parseInt(timeStart[0]) == Integer.parseInt(timeEnd[0])) {
-            if (Integer.parseInt(timeStart[1]) >= Integer.parseInt(timeEnd[1]))
+        else if (Integer.parseInt(timeStart[0]) == Integer.parseInt(timeEnd[0]) &&
+                isTimeInvalid(timeStart[0], timeEnd[0], timeStart[1], timeEnd[1])) {
+            if (Integer.parseInt(timeStart[1]) >= Integer.parseInt(timeEnd[1])) {
                 valid = false;
+                System.out.println("Accessed");
+            }
         }
 
         return valid;
     }
+
+    private boolean isTimeInvalid(String sHr, String sHrEnd, String sMinStart, String sMinEnd){
+        return Integer.parseInt(sHr) > Integer.parseInt(sHrEnd) || isHrInvalid(sHr) || isHrInvalid(sHrEnd) ||
+        isMinInvalid(sMinStart) || isMinInvalid(sMinEnd);
+    }
+
+    private boolean isMinInvalid(String sMin){
+        return Integer.parseInt(sMin) > 59 || Integer.parseInt(sMin) < 0;
+    }
+
+    private boolean isHrInvalid(String sHr){
+       return Integer.parseInt(sHr) >= 24 ||
+                Integer.parseInt(sHr) <= -1;
+    }
+
+
 }

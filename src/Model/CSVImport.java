@@ -25,7 +25,7 @@ public class CSVImport extends FileImport {
             boolean accomplished;
             while(!calendarItems.isEmpty())
                 calendarItems.remove(0);
-            System.out.println(calendarItems.size());
+
             FileReader r = new FileReader(fileName);
             BufferedReader bf = new BufferedReader(r);
             while (bf.ready()) {
@@ -47,7 +47,7 @@ public class CSVImport extends FileImport {
 
                 if(isEvent(sType))
                     calendarItems.add(new Event(event[nDateIndex].trim(), event[nStartTimeIndex].trim(), event[nEndTimeIndex].trim(),
-                            sName));
+                            sName, accomplished));
                 else if(isToDo(sType))
                     calendarItems.add(new ToDo(event[nDateIndex].trim(), event[nStartTimeIndex].trim(), event[nEndTimeIndex].trim(),
                             sName, accomplished));
@@ -101,6 +101,8 @@ public class CSVImport extends FileImport {
                 write.append(e.timeEndToString() + ",");//5th sep
                 if (e instanceof ToDo)
                     write.append(((ToDo) e).isAccomplished() + ",");//6th sep
+                else
+                    write.append(((Event) e).isDone() + ",");
                 pw.println(write.toString());
             }
             pw.close();

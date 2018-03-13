@@ -16,6 +16,7 @@ public abstract class FileImport {
     protected int nStartTimeIndex = 3;
     protected int nEndTimeIndex = 4;
     protected int nAccomplishedIndex = 5; //for tasks
+
     public abstract void readData();
     public abstract void writeData(CalendarItem calendarItem);
 
