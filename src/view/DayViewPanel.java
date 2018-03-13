@@ -28,7 +28,7 @@ public class DayViewPanel extends JPanel {
         setLayout(null);
         JLabel lblToday = new JLabel("Day View: " + date);
         lblToday.setFont(new Font("Rockwell", Font.PLAIN, 20));
-        lblToday.setBounds(30, 13, 204, 35);
+        lblToday.setBounds(30, 13, 210, 35);
         add(lblToday);
         tableModel = new DefaultTableModel(48, 2) {
             public boolean isCellEditable(int row, int col) {

@@ -1,6 +1,6 @@
 package model;
 
-public abstract class CalendarItem extends AbstractModel {
+public abstract class CalendarItem{
     protected int month;
     protected int day;
     protected int year;

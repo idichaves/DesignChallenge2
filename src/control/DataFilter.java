@@ -10,7 +10,7 @@ import java.util.GregorianCalendar;
 
 public class DataFilter {
 
-    private ArrayList<Integer> arrDates;
+    private ArrayList<int[]> arrDates;
 
     public  DataFilter(){
         arrDates = new ArrayList<>();
@@ -62,7 +62,7 @@ public class DataFilter {
     }
 
     private boolean isItemForToday(CalendarItem itm, int currentHr, int currentMin, String itmDate, String datePickerDate){
-        String startTime, endTime, currentTime, tempEnd, tempStart;
+        String startTime, endTime, tempEnd, tempStart;
         int currentMinStart = currentMin;
         int currentMinEnd = currentMin;
         if(itm.getMinStart() <10)
@@ -155,15 +155,21 @@ public class DataFilter {
         }
 
         int[] date = new int[]{nYear, nMonth, nDay};
-        arrDates.add(date[2]);
+        arrDates.add(date.clone());//[0] = year [1] = month [2] = day
         return date;
     }
 
     public int[] insertAll(int[] arrDate, ArrayList<CalendarItem> calendarItems,
                            DefaultTableModel weekTableModel,String sFilter, int nCol){//arrdate = nYear, nMonth, nDay
         String sDate = arrDate[1] + "/" +arrDate[2] + "/" + arrDate[0]; //nMonth, nDay, nyear
-        GregorianCalendar gCalendar = new GregorianCalendar(arrDate[0], arrDate[1] - 1, arrDate[2]);
         itemsForTheDay(weekTableModel, calendarItems, sDate, sFilter, nCol);
+        arrDate = incrementArr(arrDate);
+        return arrDate;
+    }
+
+
+    public int[] incrementArr(int[] arrDate){
+        GregorianCalendar gCalendar = new GregorianCalendar(arrDate[0], arrDate[1] - 1, arrDate[2]);
         int maxDate = gCalendar.getActualMaximum(gCalendar.DAY_OF_MONTH);
         if(arrDate[2] + 1 > maxDate)
             if(arrDate[1] + 1 > 12) {
@@ -176,7 +182,7 @@ public class DataFilter {
                 arrDate[2] = 1;
             }
         else arrDate[2]++;
-        arrDates.add(arrDate[2]);
+        arrDates.add(arrDate.clone());
         return arrDate;
     }
 
@@ -190,7 +196,7 @@ public class DataFilter {
         return items;
     }
 
-    public ArrayList<Integer> getArrDates() {
+    public ArrayList<int[]> getArrDates() {
         return arrDates;
     }
 }

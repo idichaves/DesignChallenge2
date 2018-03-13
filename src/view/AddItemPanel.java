@@ -182,7 +182,7 @@ public class AddItemPanel extends JPanel {
     public void reset() {
         nameTxtField.setText("");
         itemTypeGroup.clearSelection();
-        dateTxtField.setText("");
+//        dateTxtField.setText("");
         timeStarttxtField.setText("");
         timeEndTxtField.setText("");
     }
@@ -202,14 +202,34 @@ public class AddItemPanel extends JPanel {
         String[] timeEnd = timeEndTxtField.getText().split(":");
         boolean valid = true;
 
-        if (Integer.parseInt(timeStart[0]) > Integer.parseInt(timeEnd[0])){
+        if (isTimeInvalid(timeStart[0], timeEnd[0], timeStart[1], timeEnd[1])){
+            System.out.println("Accessed");
             valid = false;
         }
-        else if (Integer.parseInt(timeStart[0]) == Integer.parseInt(timeEnd[0])) {
-            if (Integer.parseInt(timeStart[1]) >= Integer.parseInt(timeEnd[1]))
+        else if (Integer.parseInt(timeStart[0]) == Integer.parseInt(timeEnd[0]) &&
+                isTimeInvalid(timeStart[0], timeEnd[0], timeStart[1], timeEnd[1])) {
+            if (Integer.parseInt(timeStart[1]) >= Integer.parseInt(timeEnd[1])) {
                 valid = false;
+                System.out.println("Accessed");
+            }
         }
 
         return valid;
     }
+
+    private boolean isTimeInvalid(String sHr, String sHrEnd, String sMinStart, String sMinEnd){
+        return Integer.parseInt(sHr) > Integer.parseInt(sHrEnd) || isHrInvalid(sHr) || isHrInvalid(sHrEnd) ||
+        isMinInvalid(sMinStart) || isMinInvalid(sMinEnd);
+    }
+
+    private boolean isMinInvalid(String sMin){
+        return Integer.parseInt(sMin) > 59 || Integer.parseInt(sMin) < 0;
+    }
+
+    private boolean isHrInvalid(String sHr){
+       return Integer.parseInt(sHr) >= 24 ||
+                Integer.parseInt(sHr) <= -1;
+    }
+
+
 }

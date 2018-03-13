@@ -3,7 +3,7 @@ package view;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
-import java.awt.Container;
+import java.awt.*;
 import javax.swing.border.SoftBevelBorder;
 import javax.swing.border.BevelBorder;
 
@@ -19,7 +19,8 @@ public class CalendarView {
     public CalendarView(CalendarDataModel model) {
         mainFrame = new JFrame("Productivity Tool");
         mainFrame.getContentPane().setLayout(null);
-        mainFrame.setSize(910, 480);
+        mainFrame.setSize(893, 465);
+        mainFrame.setBackground(Color.decode("#2591ba"));
         mainPane = mainFrame.getContentPane();
         try {
             UIManager.setLookAndFeel("com.alee.laf.WebLookAndFeel");
