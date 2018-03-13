@@ -105,6 +105,7 @@ public class AgendaViewPanel extends JPanel {
         JPanel panel = new JPanel(null);
         panel.setBounds(0, y, 590, 30);
 
+        panel.setBackground(Color.decode("#12bca2"));
         if (!accomplished) {
             JCheckBox checkBox = new JCheckBox(time + " " + name);
             checkBox.setFont(new Font("Rockwell", Font.PLAIN, 20));
@@ -117,6 +118,7 @@ public class AgendaViewPanel extends JPanel {
                     model.setTaskStatus(name, date, checkBox.isSelected());
                     panel.remove(checkBox);
                     JCheckBox box = new JCheckBox("<html><strike>" + checkBox.getText() + "</strike></html>");
+                    box.setBackground(Color.decode("#19aaa2"));
                     box.setFont(new Font("Rockwell", Font.PLAIN, 20));
                     box.setBounds(checkBox.getBounds());
                     box.setSelected(true);
