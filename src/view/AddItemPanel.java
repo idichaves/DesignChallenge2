@@ -32,9 +32,12 @@ public class AddItemPanel extends JPanel {
 
     public AddItemPanel(JPanel itemPanel, JDatePickerImpl datePicker, CalendarDataModel model) {
         setLayout(null);
-
         addItemController = new AddItemControl();
-
+        String sZero = "";
+        if(datePicker.getModel().getMonth() < 10)
+            sZero = "0";
+        String sDate = sZero + (datePicker.getModel().getMonth() + 1) + "/" + datePicker.getModel().getDay() +
+                "/" + datePicker.getModel().getYear();
         JLabel lblName = new JLabel("Name:");
         lblName.setFont(new Font("Rockwell", Font.PLAIN, 16));
         lblName.setBounds(30, 75, 89, 27);
@@ -69,6 +72,7 @@ public class AddItemPanel extends JPanel {
         dateTxtField.setFont(new Font("Rockwell", Font.PLAIN, 15));
         dateTxtField.setBounds(131, 140, 115, 29);
         dateTxtField.setEditable(false);
+        dateTxtField.setText(sDate);
         add(dateTxtField);
         dateTxtField.setColumns(10);
 

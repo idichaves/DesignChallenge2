@@ -1,24 +1,30 @@
 package view;
 
 import javax.swing.*;
-import java.awt.Font;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import control.AgendaViewControl;
 import model.CalendarDataModel;
+import sun.util.resources.CalendarData;
 
 public class AgendaViewPanel extends JPanel {
 
     private static final long serialVersionUID = 1L;
     private AgendaViewControl agendaViewControl;
     private CalendarDataModel model;
+    JButton btnMon, btnTue, btnWed, btnThu, btnFri, btnSat, btnSun;
     private int y;
 
-    public AgendaViewPanel(String date, String filterType, CalendarDataModel model) { //ArrayList<CalendarItem> calendarItems
+    public AgendaViewPanel(String date, String filterType, CalendarDataModel model) {//ArrayList<CalendarItem> calendarItems
+        init(date, filterType, model);
+    }
+
+    public void init(String date, String filterType, CalendarDataModel model){
         setLayout(null);
         this.model = model;
-
+        setBackground(Color.decode("#19aaa2"));
         JLabel lblAgenda = new JLabel("Agenda for " + date);
         lblAgenda.setFont(new Font("Rockwell", Font.PLAIN, 20));
         lblAgenda.setBounds(30, 13, 250, 35);

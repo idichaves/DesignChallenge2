@@ -34,7 +34,7 @@ public class WeekViewPanel extends JPanel {
                 return false;
             }
         };
-
+        setBackground(Color.decode("#19aaa2"));
         weekTable = new JTable(weekTableModel);
         weekTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         weekTable.setRowHeight(50);

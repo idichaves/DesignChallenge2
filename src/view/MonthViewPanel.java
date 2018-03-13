@@ -327,6 +327,8 @@ public class MonthViewPanel extends JPanel {
         datePicker = new JDatePickerImpl(monthCalPanel, new DateLabelFormatter());
         datePicker.setShowYearButtons(true);
         datePicker.setBounds(0, 0, 334, 25);
+//        String sZero = "";
+//        datePicker.getJFormattedTextField().setText(sDate);
         add(datePicker);
     }
 }

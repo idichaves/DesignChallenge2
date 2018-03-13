@@ -1,5 +1,4 @@
 package model;
-
 import control.DataFilter;
 
 import java.util.ArrayList;
