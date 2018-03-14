@@ -61,7 +61,7 @@ public class LiveChecker implements Runnable {
 
     public void expiredCheckBox(){
         checkBox.setEnabled(false);
-        panel.revalidate();
+        panel.repaint();
         isRunning = false;
     }
 
