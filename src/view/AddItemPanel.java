@@ -140,18 +140,21 @@ public class AddItemPanel extends JPanel {
                 }
             }
         });
-        /*rdbtnTask.addActionListener(new ActionListener() {
+        rdbtnTask.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                timeEndTxtField.setText("-");
                 timeEndTxtField.setEnabled(false);
             }
         });
+
         rdbtnEvent.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                timeEndTxtField.setText("");
                 timeEndTxtField.setEnabled(true);
             }
-        });*/
+        });
 
         btnCancel = new JButton("Cancel");
         btnCancel.setFont(new Font("Rockwell", Font.PLAIN, 15));
@@ -214,15 +217,16 @@ public class AddItemPanel extends JPanel {
         String[] timeEnd = timeEndTxtField.getText().split(":");
         boolean valid = true;
 
-        if (isTimeInvalid(timeStart[0], timeEnd[0], timeStart[1], timeEnd[1])){
-            System.out.println("Accessed");
-            valid = false;
-        }
-        else if (Integer.parseInt(timeStart[0]) == Integer.parseInt(timeEnd[0]) &&
-                isTimeInvalid(timeStart[0], timeEnd[0], timeStart[1], timeEnd[1])) {
-            if (Integer.parseInt(timeStart[1]) >= Integer.parseInt(timeEnd[1])) {
-                valid = false;
+        if (!rdbtnTask.isSelected()) {
+            if (isTimeInvalid(timeStart[0], timeEnd[0], timeStart[1], timeEnd[1])) {
                 System.out.println("Accessed");
+                valid = false;
+            } else if (Integer.parseInt(timeStart[0]) == Integer.parseInt(timeEnd[0]) &&
+                    isTimeInvalid(timeStart[0], timeEnd[0], timeStart[1], timeEnd[1])) {
+                if (Integer.parseInt(timeStart[1]) >= Integer.parseInt(timeEnd[1])) {
+                    valid = false;
+                    System.out.println("Accessed");
+                }
             }
         }
 
@@ -242,6 +246,4 @@ public class AddItemPanel extends JPanel {
        return Integer.parseInt(sHr) >= 24 ||
                 Integer.parseInt(sHr) <= -1;
     }
-
-
 }
