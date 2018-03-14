@@ -21,15 +21,17 @@ public class LiveChecker implements Runnable {
     public void run() {
         while(isRunning){
 //            System.out.println(getCurrentTime());
-            if(isEqualdate("Year", calendarItem.getYear()))
-                if(isEqualdate("month", calendarItem.getMonth()))
-                    if(isEqualdate("day", calendarItem.getDay()))
-                        if(Integer.parseInt(getCurrentTime()) > parseToInt(calendarItem.timeEndToString()))
+            if(isEqualdate("Year", calendarItem.getYear())) {
+                if (isEqualdate("month", calendarItem.getMonth())) {
+                    if (isEqualdate("day", calendarItem.getDay())) {
+                        if (Integer.parseInt(getCurrentTime()) > parseToInt(calendarItem.timeEndToString()))
                             expiredCheckBox();
-                    else if(sSplit(getCurrentDate(), "day") > calendarItem.getDay())
+                    } else if (sSplit(getCurrentDate(), "day") > calendarItem.getDay())
                         expiredCheckBox();
-                else if(sSplit(getCurrentDate(), "month") > calendarItem.getMonth())
+                }
+                else if (sSplit(getCurrentDate(), "month") > calendarItem.getMonth())
                     expiredCheckBox();
+            }
             else if(sSplit(getCurrentDate(), "year") > calendarItem.getYear())
                 expiredCheckBox();
         }
@@ -59,7 +61,7 @@ public class LiveChecker implements Runnable {
 
     public void expiredCheckBox(){
         checkBox.setEnabled(false);
-        panel.repaint();
+        panel.revalidate();
         isRunning = false;
     }
 
