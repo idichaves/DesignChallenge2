@@ -19,7 +19,7 @@ public class CalendarView {
     public CalendarView(CalendarDataModel model) {
         mainFrame = new JFrame("Productivity Tool");
         mainFrame.getContentPane().setLayout(null);
-        mainFrame.setSize(893, 465);
+        mainFrame.setSize(910, 480);
         mainFrame.setBackground(Color.decode("#2591ba"));
         mainPane = mainFrame.getContentPane();
         try {

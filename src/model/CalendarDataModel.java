@@ -85,9 +85,10 @@ public class CalendarDataModel {
 
     public boolean checkNoOverlap(String date, String timeStart, String timeEnd, String type){
         ArrayList<CalendarItem> items = new DataFilter().findItemsWithDate(getCalendarItems(), date);
+        String end = timeEnd;
         boolean noOverlap = true;
         String[] startComps = timeStart.split(":");
-        if (type.equals("ToDo")) {
+        if (type.equalsIgnoreCase("Task")) {
             int nMinStart = Integer.parseInt(startComps[1]);
             int nHrStart = Integer.parseInt(startComps[0]);
 
@@ -101,28 +102,29 @@ public class CalendarDataModel {
             endBuilder.append(Integer.toString(nHrStart));
             endBuilder.append(":");
             endBuilder.append(Integer.toString(nMinStart));
-            timeEnd = endBuilder.toString();
+            end = endBuilder.toString();
         }
-        String[] endComps = timeEnd.split(":");
+        String[] endComps = end.split(":");
+        if (Integer.parseInt(endComps[0]) < 24) {
+            if (items.size() > 0) {
+                for (int i = 0; i < items.size() && noOverlap; i++) {
+                    LocalTime localStartA = LocalTime.of(Integer.parseInt(startComps[0]), Integer.parseInt(startComps[1]));
+                    LocalTime localEndA = LocalTime.of(Integer.parseInt(endComps[0]), Integer.parseInt(endComps[1]));
 
-        if (items.size() > 0){
-            for (int i = 0; i < items.size() && noOverlap; i++){
-                LocalTime localStartA = LocalTime.of(Integer.parseInt(startComps[0]), Integer.parseInt(startComps[1]));
-                LocalTime localEndA = LocalTime.of(Integer.parseInt(endComps[0]), Integer.parseInt(endComps[1]));
+                    LocalTime localStartB = LocalTime.of(items.get(i).getHrStart(), items.get(i).getMinStart());
+                    LocalTime localEndB = LocalTime.of(items.get(i).getHrEnd(), items.get(i).getMinEnd());
 
-                LocalTime localStartB = LocalTime.of(items.get(i).getHrStart(), items.get(i).getMinStart());
-                LocalTime localEndB = LocalTime.of(items.get(i).getHrEnd(), items.get(i).getMinEnd());
-
-                if (localStartA.toSecondOfDay() > localEndB.toSecondOfDay()) {
-                    if (!localStartA.isAfter(localEndB) && !localStartB.isAfter(localEndA) && !(localStartA.until(localEndB, MINUTES) >= 30)) {
+                    if (localStartA.toSecondOfDay() > localEndB.toSecondOfDay()) {
+                        if (!localStartA.isAfter(localEndB) && !localStartB.isAfter(localEndA) && !(localStartA.until(localEndB, MINUTES) >= 30)) {
+                            noOverlap = false;
+                        }
+                    } else if (!localStartA.isAfter(localEndB) && !localStartB.isAfter(localEndA) && !(localEndB.until(localStartA, MINUTES) >= 30))
                         noOverlap = false;
-                    }
                 }
-                else
-                   if (!localStartA.isAfter(localEndB) && !localStartB.isAfter(localEndA) && !(localEndB.until(localStartA, MINUTES) >= 30))
-                       noOverlap = false;
             }
         }
+        else
+            noOverlap = false;
 
         return noOverlap;
     }

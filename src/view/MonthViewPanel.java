@@ -28,7 +28,6 @@ public class MonthViewPanel extends JPanel {
     private JRadioButton rdbtnDayView;
     private JRadioButton rdbtnWeekView;
     private JRadioButton rdbtnAgendaView;
-    private JRadioButton rdbtnWeeklyAgenda;
     private ButtonGroup itemGroup;
     private ButtonGroup viewGroup;
     private MonthViewControl controller;
@@ -311,7 +310,6 @@ public class MonthViewPanel extends JPanel {
         viewGroup.add(rdbtnDayView);
         viewGroup.add(rdbtnWeekView);
         viewGroup.add(rdbtnAgendaView);
-        viewGroup.add(rdbtnWeeklyAgenda);
     }
 
     public void addDatePicker(MonthViewModel model){
