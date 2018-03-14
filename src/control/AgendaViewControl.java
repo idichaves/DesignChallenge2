@@ -17,9 +17,9 @@ public class AgendaViewControl {
 
         for (int i = 0; i < items.size(); i++){
             if (items.get(i) instanceof Event) //todo: if current time is already greater than time of date, send isAccomplished true by default
-                panel.addEvent(items.get(i).durationToString(), date, items.get(i).getName(), ((Event) items.get(i)).isDone());
+                panel.addEvent(items.get(i).durationToString(), date, items.get(i), ((Event) items.get(i)).isDone());
             else
-                panel.addTask(items.get(i).timeStartToString(), date, items.get(i).getName(), ((ToDo) items.get(i)).isAccomplished());
+                panel.addTask(items.get(i).timeStartToString(), date, items.get(i), ((ToDo) items.get(i)).isAccomplished());
         }
     }
 

@@ -13,6 +13,7 @@ import java.util.Locale;
 import control.AgendaViewControl;
 import control.DataFilter;
 import model.CalendarDataModel;
+import model.CalendarItem;
 //import sun.util.resources.CalendarData;
 
 public class AgendaViewPanel extends JPanel {
@@ -48,23 +49,23 @@ public class AgendaViewPanel extends JPanel {
         agendaViewControl = new AgendaViewControl(date, model, this, filterType);
     }
 
-    public void addEvent(String time, String date, String name, boolean done){
+    public void addEvent(String time, String date, CalendarItem item, boolean done){
         //add thread checker if current time has already past
         JPanel panel = new JPanel(null);
         panel.setBounds(0, y, 590, 30);
 
         panel.setBackground(Color.decode("#12bca2"));
         if (!done) {
-            JCheckBox checkBox = new JCheckBox(time + " " + name);
+            JCheckBox checkBox = new JCheckBox(time + " " + item.getName());
             checkBox.setFont(new Font("Rockwell", Font.PLAIN, 20));
             checkBox.setBounds(0, 0, 400, 30);
-
             add(panel);
             panel.add(checkBox);
+            createThread(panel, checkBox, item);
             checkBox.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent arg0) { //set the task in model to accomplished = true;
-                    model.setEventStatus(name, date, checkBox.isSelected());
+                    model.setEventStatus(item.getName(), date, checkBox.isSelected());
                     panel.remove(checkBox);
                     JCheckBox box = new JCheckBox(checkBox.getText());
                     box.setBackground(Color.decode("#19aaa2"));
@@ -78,13 +79,14 @@ public class AgendaViewPanel extends JPanel {
             });
         }
         else{
-            JCheckBox checkBox = new JCheckBox(time + " " + name);
+            JCheckBox checkBox = new JCheckBox(time + " " + item.getName());
             checkBox.setFont(new Font("Rockwell", Font.PLAIN, 20));
             checkBox.setBounds(0, 0, 400, 30);
             checkBox.setSelected(true);
             checkBox.setEnabled(false);
             add(panel);
             panel.add(checkBox);
+            createThread(panel, checkBox, item);
         }
         JButton btnRemove = new JButton("Remove");
         btnRemove.setFont(new Font("Rockwell", Font.PLAIN, 20));
@@ -93,7 +95,7 @@ public class AgendaViewPanel extends JPanel {
         btnRemove.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent arg0){
-                model.removeEvent(name, date);
+                model.removeEvent(item.getName(), date);
                 remove(panel);
                 repaint();
             }
@@ -101,21 +103,22 @@ public class AgendaViewPanel extends JPanel {
         y+=35;
     }
 
-    public void addTask(String time, String date, String name, boolean accomplished) {
+    public void addTask(String time, String date, CalendarItem item, boolean accomplished) {
         JPanel panel = new JPanel(null);
         panel.setBounds(0, y, 590, 30);
 
         panel.setBackground(Color.decode("#12bca2"));
         if (!accomplished) {
-            JCheckBox checkBox = new JCheckBox(time + " " + name);
+            JCheckBox checkBox = new JCheckBox(time + " " + item.getName());
             checkBox.setFont(new Font("Rockwell", Font.PLAIN, 20));
             checkBox.setBounds(0, 0, 400, 30);
             add(panel);
             panel.add(checkBox);
+            createThread(panel, checkBox, item);
             checkBox.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent arg0) { //set the task in model to accomplished = true;
-                    model.setTaskStatus(name, date, checkBox.isSelected());
+                    model.setTaskStatus(item.getName(), date, checkBox.isSelected());
                     panel.remove(checkBox);
                     JCheckBox box = new JCheckBox("<html><strike>" + checkBox.getText() + "</strike></html>");
                     box.setBackground(Color.decode("#19aaa2"));
@@ -127,12 +130,13 @@ public class AgendaViewPanel extends JPanel {
                 }
             });
         } else {
-            JCheckBox checkBox = new JCheckBox("<html><strike>" + time + " " + name + "</strike></html>");
+            JCheckBox checkBox = new JCheckBox("<html><strike>" + time + " " + item.getName() + "</strike></html>");
             checkBox.setFont(new Font("Rockwell", Font.PLAIN, 20));
             checkBox.setBounds(0, 0, 400, 30);
             checkBox.setSelected(true);
             add(panel);
             panel.add(checkBox);
+            createThread(panel, checkBox, item);
         }
         JButton btnRemove = new JButton("Remove");
         btnRemove.setFont(new Font("Rockwell", Font.PLAIN, 20));
@@ -141,7 +145,7 @@ public class AgendaViewPanel extends JPanel {
         btnRemove.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent arg0) {
-                model.removeTask(name, date);
+                model.removeTask(item.getName(), date);
                 remove(panel);
                 repaint();
             }
@@ -268,5 +272,10 @@ public class AgendaViewPanel extends JPanel {
         if(arrDates.get(i)[1] < 10)
             sMonth = "0" + sMonth;
         return sMonth + "/" + sDay + "/" +sYear;
+    }
+
+    public void createThread(JPanel panel, JCheckBox checkBox, CalendarItem item){
+        Thread thread = new Thread(new LiveChecker(panel, checkBox, item));
+        thread.start();
     }
 }
